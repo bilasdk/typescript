@@ -30,9 +30,7 @@ const client = new Bila({
   environment: 'sandbox', // defaults to 'production'
 });
 
-const bilaResponse = await client.v1.bila.accounts.list();
-
-console.log(bilaResponse.message);
+const accounts = await client.v1.bila.accounts.list();
 ```
 
 ### Request & Response types
@@ -48,7 +46,7 @@ const client = new Bila({
   environment: 'sandbox', // defaults to 'production'
 });
 
-const bilaResponse: Bila.V1.Bila.BilaResponse = await client.v1.bila.accounts.list();
+const accounts: Bila.V1.Bila.AccountListResponse = await client.v1.bila.accounts.list();
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -61,7 +59,7 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-const bilaResponse = await client.v1.bila.accounts.list().catch(async (err) => {
+const accounts = await client.v1.bila.accounts.list().catch(async (err) => {
   if (err instanceof Bila.APIError) {
     console.log(err.status); // 400
     console.log(err.name); // BadRequestError
@@ -145,9 +143,9 @@ const response = await client.v1.bila.accounts.list().asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: bilaResponse, response: raw } = await client.v1.bila.accounts.list().withResponse();
+const { data: accounts, response: raw } = await client.v1.bila.accounts.list().withResponse();
 console.log(raw.headers.get('X-My-Header'));
-console.log(bilaResponse.message);
+console.log(accounts);
 ```
 
 ### Logging
