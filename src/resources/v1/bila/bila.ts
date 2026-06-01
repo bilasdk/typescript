@@ -2,29 +2,67 @@
 
 import { APIResource } from '../../../core/resource';
 import * as AccountsAPI from './accounts';
-import { AccountListParams, Accounts, BilaResponse } from './accounts';
+import {
+  AccountGetBalanceResponse,
+  AccountListParams,
+  AccountListResponse,
+  AccountRetrieveResponse,
+  Accounts,
+  BilaResponse,
+} from './accounts';
 import * as CollectionsAPI from './collections';
 import {
+  CollectionGetStatusByReferenceResponse,
   CollectionInitiateMobileMoneyCollectionParams,
+  CollectionInitiateMobileMoneyCollectionResponse,
   CollectionListParams,
+  CollectionListResponse,
+  CollectionRetrieveResponse,
   Collections,
 } from './collections';
 import * as TransactionsAPI from './transactions';
-import { TransactionListParams, Transactions } from './transactions';
+import {
+  TransactionListParams,
+  TransactionListResponse,
+  TransactionRetrieveResponse,
+  Transactions,
+} from './transactions';
 import * as TransferRecipientsAPI from './transfer-recipients';
 import {
   TransferRecipientCreateBankAccountParams,
+  TransferRecipientCreateBankAccountResponse,
   TransferRecipientCreateMobileMoneyParams,
+  TransferRecipientCreateMobileMoneyResponse,
   TransferRecipientListParams,
+  TransferRecipientListResponse,
+  TransferRecipientRetrieveResponse,
   TransferRecipients,
 } from './transfer-recipients';
 import * as TransfersAPI from './transfers';
 import {
+  TransferGetStatusByReferenceResponse,
   TransferInitiateBankTransferParams,
+  TransferInitiateBankTransferResponse,
   TransferInitiateMobileMoneyTransferParams,
+  TransferInitiateMobileMoneyTransferResponse,
   TransferListParams,
+  TransferListResponse,
+  TransferRetrieveResponse,
   Transfers,
 } from './transfers';
+import * as WebhooksAPI from './webhooks';
+import {
+  WebhookCreateParams,
+  WebhookCreateResponse,
+  WebhookListDeliveriesParams,
+  WebhookListDeliveriesResponse,
+  WebhookListEventTypesResponse,
+  WebhookListResponse,
+  WebhookRotateSecretResponse,
+  WebhookUpdateParams,
+  WebhookUpdateResponse,
+  Webhooks,
+} from './webhooks';
 import { APIPromise } from '../../../core/api-promise';
 import { RequestOptions } from '../../../internal/request-options';
 
@@ -36,19 +74,20 @@ export class Bila extends APIResource {
   transfers: TransfersAPI.Transfers = new TransfersAPI.Transfers(this._client);
   collections: CollectionsAPI.Collections = new CollectionsAPI.Collections(this._client);
   transactions: TransactionsAPI.Transactions = new TransactionsAPI.Transactions(this._client);
+  webhooks: WebhooksAPI.Webhooks = new WebhooksAPI.Webhooks(this._client);
 
   /**
    * Retrieve a list of all supported banks and financial institutions
    *
    * @example
    * ```ts
-   * const bilaResponse = await client.v1.bila.listBanks();
+   * const response = await client.v1.bila.listBanks();
    * ```
    */
   listBanks(
     query: BilaListBanksParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<AccountsAPI.BilaResponse> {
+  ): APIPromise<BilaListBanksResponse> {
     return this._client.get('/api/v1/bila/banks', { query, ...options });
   }
 
@@ -57,17 +96,16 @@ export class Bila extends APIResource {
    *
    * @example
    * ```ts
-   * const bilaResponse =
-   *   await client.v1.bila.resolveBankAccount({
-   *     accountNumber: '1234567890',
-   *     bankId: 'bank-001',
-   *   });
+   * const response = await client.v1.bila.resolveBankAccount({
+   *   accountNumber: '1234567890',
+   *   bankId: 'bank-001',
+   * });
    * ```
    */
   resolveBankAccount(
     body: BilaResolveBankAccountParams,
     options?: RequestOptions,
-  ): APIPromise<AccountsAPI.BilaResponse> {
+  ): APIPromise<BilaResolveBankAccountResponse> {
     return this._client.post('/api/v1/bila/resolve/bank-account', { body, ...options });
   }
 
@@ -76,19 +114,137 @@ export class Bila extends APIResource {
    *
    * @example
    * ```ts
-   * const bilaResponse =
-   *   await client.v1.bila.resolveMobileMoney({
-   *     country: 'zm',
-   *     operator: 'airtel',
-   *     phone: '0977433571',
-   *   });
+   * const response = await client.v1.bila.resolveMobileMoney({
+   *   country: 'zm',
+   *   operator: 'airtel',
+   *   phone: '0977433571',
+   * });
    * ```
    */
   resolveMobileMoney(
     body: BilaResolveMobileMoneyParams,
     options?: RequestOptions,
-  ): APIPromise<AccountsAPI.BilaResponse> {
+  ): APIPromise<BilaResolveMobileMoneyResponse> {
     return this._client.post('/api/v1/bila/resolve/mobile-money', { body, ...options });
+  }
+}
+
+export interface BilaListBanksResponse extends AccountsAPI.BilaResponse {
+  data?: Array<BilaListBanksResponse.Data>;
+}
+
+export namespace BilaListBanksResponse {
+  export interface Data {
+    /**
+     * Bank ID
+     */
+    id: string;
+
+    /**
+     * Bank code
+     */
+    code: string;
+
+    /**
+     * Country code
+     */
+    country: string;
+
+    /**
+     * Bank name
+     */
+    name: string;
+
+    /**
+     * Bank type
+     */
+    type?: string;
+  }
+}
+
+export interface BilaResolveBankAccountResponse extends AccountsAPI.BilaResponse {
+  data?: BilaResolveBankAccountResponse.Data;
+}
+
+export namespace BilaResolveBankAccountResponse {
+  export interface Data {
+    /**
+     * Account holder name
+     */
+    accountName: string;
+
+    /**
+     * Country code
+     */
+    country: string;
+
+    /**
+     * Bank account number
+     */
+    accountNumber?: string;
+
+    /**
+     * Bank ID
+     */
+    bankId?: string;
+
+    /**
+     * Bank name
+     */
+    bankName?: string;
+
+    /**
+     * Mobile money operator
+     */
+    operator?: string;
+
+    /**
+     * Phone number
+     */
+    phone?: string;
+  }
+}
+
+export interface BilaResolveMobileMoneyResponse extends AccountsAPI.BilaResponse {
+  data?: BilaResolveMobileMoneyResponse.Data;
+}
+
+export namespace BilaResolveMobileMoneyResponse {
+  export interface Data {
+    /**
+     * Account holder name
+     */
+    accountName: string;
+
+    /**
+     * Country code
+     */
+    country: string;
+
+    /**
+     * Bank account number
+     */
+    accountNumber?: string;
+
+    /**
+     * Bank ID
+     */
+    bankId?: string;
+
+    /**
+     * Bank name
+     */
+    bankName?: string;
+
+    /**
+     * Mobile money operator
+     */
+    operator?: string;
+
+    /**
+     * Phone number
+     */
+    phone?: string;
   }
 }
 
@@ -138,9 +294,13 @@ Bila.TransferRecipients = TransferRecipients;
 Bila.Transfers = Transfers;
 Bila.Collections = Collections;
 Bila.Transactions = Transactions;
+Bila.Webhooks = Webhooks;
 
 export declare namespace Bila {
   export {
+    type BilaListBanksResponse as BilaListBanksResponse,
+    type BilaResolveBankAccountResponse as BilaResolveBankAccountResponse,
+    type BilaResolveMobileMoneyResponse as BilaResolveMobileMoneyResponse,
     type BilaListBanksParams as BilaListBanksParams,
     type BilaResolveBankAccountParams as BilaResolveBankAccountParams,
     type BilaResolveMobileMoneyParams as BilaResolveMobileMoneyParams,
@@ -149,11 +309,18 @@ export declare namespace Bila {
   export {
     Accounts as Accounts,
     type BilaResponse as BilaResponse,
+    type AccountRetrieveResponse as AccountRetrieveResponse,
+    type AccountListResponse as AccountListResponse,
+    type AccountGetBalanceResponse as AccountGetBalanceResponse,
     type AccountListParams as AccountListParams,
   };
 
   export {
     TransferRecipients as TransferRecipients,
+    type TransferRecipientRetrieveResponse as TransferRecipientRetrieveResponse,
+    type TransferRecipientListResponse as TransferRecipientListResponse,
+    type TransferRecipientCreateBankAccountResponse as TransferRecipientCreateBankAccountResponse,
+    type TransferRecipientCreateMobileMoneyResponse as TransferRecipientCreateMobileMoneyResponse,
     type TransferRecipientListParams as TransferRecipientListParams,
     type TransferRecipientCreateBankAccountParams as TransferRecipientCreateBankAccountParams,
     type TransferRecipientCreateMobileMoneyParams as TransferRecipientCreateMobileMoneyParams,
@@ -161,6 +328,11 @@ export declare namespace Bila {
 
   export {
     Transfers as Transfers,
+    type TransferRetrieveResponse as TransferRetrieveResponse,
+    type TransferListResponse as TransferListResponse,
+    type TransferGetStatusByReferenceResponse as TransferGetStatusByReferenceResponse,
+    type TransferInitiateBankTransferResponse as TransferInitiateBankTransferResponse,
+    type TransferInitiateMobileMoneyTransferResponse as TransferInitiateMobileMoneyTransferResponse,
     type TransferListParams as TransferListParams,
     type TransferInitiateBankTransferParams as TransferInitiateBankTransferParams,
     type TransferInitiateMobileMoneyTransferParams as TransferInitiateMobileMoneyTransferParams,
@@ -168,9 +340,31 @@ export declare namespace Bila {
 
   export {
     Collections as Collections,
+    type CollectionRetrieveResponse as CollectionRetrieveResponse,
+    type CollectionListResponse as CollectionListResponse,
+    type CollectionGetStatusByReferenceResponse as CollectionGetStatusByReferenceResponse,
+    type CollectionInitiateMobileMoneyCollectionResponse as CollectionInitiateMobileMoneyCollectionResponse,
     type CollectionListParams as CollectionListParams,
     type CollectionInitiateMobileMoneyCollectionParams as CollectionInitiateMobileMoneyCollectionParams,
   };
 
-  export { Transactions as Transactions, type TransactionListParams as TransactionListParams };
+  export {
+    Transactions as Transactions,
+    type TransactionRetrieveResponse as TransactionRetrieveResponse,
+    type TransactionListResponse as TransactionListResponse,
+    type TransactionListParams as TransactionListParams,
+  };
+
+  export {
+    Webhooks as Webhooks,
+    type WebhookCreateResponse as WebhookCreateResponse,
+    type WebhookUpdateResponse as WebhookUpdateResponse,
+    type WebhookListResponse as WebhookListResponse,
+    type WebhookListDeliveriesResponse as WebhookListDeliveriesResponse,
+    type WebhookListEventTypesResponse as WebhookListEventTypesResponse,
+    type WebhookRotateSecretResponse as WebhookRotateSecretResponse,
+    type WebhookCreateParams as WebhookCreateParams,
+    type WebhookUpdateParams as WebhookUpdateParams,
+    type WebhookListDeliveriesParams as WebhookListDeliveriesParams,
+  };
 }

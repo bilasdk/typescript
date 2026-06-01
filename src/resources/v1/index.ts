@@ -2,6 +2,9 @@
 
 export {
   Bila,
+  type BilaListBanksResponse,
+  type BilaResolveBankAccountResponse,
+  type BilaResolveMobileMoneyResponse,
   type BilaListBanksParams,
   type BilaResolveBankAccountParams,
   type BilaResolveMobileMoneyParams,

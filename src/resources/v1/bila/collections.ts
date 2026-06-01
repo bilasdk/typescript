@@ -15,13 +15,13 @@ export class Collections extends APIResource {
    *
    * @example
    * ```ts
-   * const bilaResponse =
+   * const collection =
    *   await client.v1.bila.collections.retrieve(
    *     '68f11209-451f-4a15-bfcd-d916eb8b09f4',
    *   );
    * ```
    */
-  retrieve(id: string, options?: RequestOptions): APIPromise<AccountsAPI.BilaResponse> {
+  retrieve(id: string, options?: RequestOptions): APIPromise<CollectionRetrieveResponse> {
     return this._client.get(path`/api/v1/bila/collections/${id}`, options);
   }
 
@@ -30,14 +30,13 @@ export class Collections extends APIResource {
    *
    * @example
    * ```ts
-   * const bilaResponse =
-   *   await client.v1.bila.collections.list();
+   * const collections = await client.v1.bila.collections.list();
    * ```
    */
   list(
     query: CollectionListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<AccountsAPI.BilaResponse> {
+  ): APIPromise<CollectionListResponse> {
     return this._client.get('/api/v1/bila/collections', { query, ...options });
   }
 
@@ -46,13 +45,16 @@ export class Collections extends APIResource {
    *
    * @example
    * ```ts
-   * const bilaResponse =
+   * const response =
    *   await client.v1.bila.collections.getStatusByReference(
    *     'collection-001',
    *   );
    * ```
    */
-  getStatusByReference(reference: string, options?: RequestOptions): APIPromise<AccountsAPI.BilaResponse> {
+  getStatusByReference(
+    reference: string,
+    options?: RequestOptions,
+  ): APIPromise<CollectionGetStatusByReferenceResponse> {
     return this._client.get(path`/api/v1/bila/collections/status/${reference}`, options);
   }
 
@@ -62,7 +64,7 @@ export class Collections extends APIResource {
    *
    * @example
    * ```ts
-   * const bilaResponse =
+   * const response =
    *   await client.v1.bila.collections.initiateMobileMoneyCollection(
    *     {
    *       amount: 100.5,
@@ -78,8 +80,367 @@ export class Collections extends APIResource {
   initiateMobileMoneyCollection(
     body: CollectionInitiateMobileMoneyCollectionParams,
     options?: RequestOptions,
-  ): APIPromise<AccountsAPI.BilaResponse> {
+  ): APIPromise<CollectionInitiateMobileMoneyCollectionResponse> {
     return this._client.post('/api/v1/bila/collections/mobile-money', { body, ...options });
+  }
+}
+
+export interface CollectionRetrieveResponse extends AccountsAPI.BilaResponse {
+  data?: CollectionRetrieveResponse.Data;
+}
+
+export namespace CollectionRetrieveResponse {
+  export interface Data {
+    /**
+     * Collection ID
+     */
+    id: string;
+
+    /**
+     * Collection amount
+     */
+    amount: number;
+
+    /**
+     * Collection creation timestamp
+     */
+    createdAt: string;
+
+    /**
+     * Currency code
+     */
+    currency: string;
+
+    /**
+     * Customer details
+     */
+    customer: Data.Customer;
+
+    /**
+     * Client reference
+     */
+    reference: string;
+
+    /**
+     * Collection status
+     */
+    status: 'pending' | 'successful' | 'failed' | 'otp-required' | 'pay-offline';
+
+    /**
+     * Collection completion timestamp
+     */
+    completedAt?: string;
+
+    /**
+     * Who bears the collection platform fee
+     */
+    feeBearer?: 'merchant' | 'customer';
+
+    /**
+     * Collection narration
+     */
+    narration?: string;
+  }
+
+  export namespace Data {
+    /**
+     * Customer details
+     */
+    export interface Customer {
+      /**
+       * Customer name
+       */
+      name: string;
+
+      /**
+       * Mobile money operator
+       */
+      operator: string;
+
+      /**
+       * Customer phone number
+       */
+      phone: string;
+    }
+  }
+}
+
+export interface CollectionListResponse extends AccountsAPI.BilaResponse {
+  data?: CollectionListResponse.Data;
+}
+
+export namespace CollectionListResponse {
+  export interface Data {
+    /**
+     * List of collections
+     */
+    data: Array<Data.Data>;
+
+    /**
+     * Pagination metadata
+     */
+    meta: Data.Meta;
+  }
+
+  export namespace Data {
+    export interface Data {
+      /**
+       * Collection ID
+       */
+      id: string;
+
+      /**
+       * Collection amount
+       */
+      amount: number;
+
+      /**
+       * Collection creation timestamp
+       */
+      createdAt: string;
+
+      /**
+       * Currency code
+       */
+      currency: string;
+
+      /**
+       * Customer details
+       */
+      customer: Data.Customer;
+
+      /**
+       * Client reference
+       */
+      reference: string;
+
+      /**
+       * Collection status
+       */
+      status: 'pending' | 'successful' | 'failed' | 'otp-required' | 'pay-offline';
+
+      /**
+       * Collection completion timestamp
+       */
+      completedAt?: string;
+
+      /**
+       * Who bears the collection platform fee
+       */
+      feeBearer?: 'merchant' | 'customer';
+
+      /**
+       * Collection narration
+       */
+      narration?: string;
+    }
+
+    export namespace Data {
+      /**
+       * Customer details
+       */
+      export interface Customer {
+        /**
+         * Customer name
+         */
+        name: string;
+
+        /**
+         * Mobile money operator
+         */
+        operator: string;
+
+        /**
+         * Customer phone number
+         */
+        phone: string;
+      }
+    }
+
+    /**
+     * Pagination metadata
+     */
+    export interface Meta {
+      /**
+       * Current page number
+       */
+      currentPage: number;
+
+      /**
+       * Total number of pages
+       */
+      pageCount: number;
+
+      /**
+       * Items per page
+       */
+      perPage: number;
+
+      /**
+       * Total number of records
+       */
+      total: number;
+    }
+  }
+}
+
+export interface CollectionGetStatusByReferenceResponse extends AccountsAPI.BilaResponse {
+  data?: CollectionGetStatusByReferenceResponse.Data;
+}
+
+export namespace CollectionGetStatusByReferenceResponse {
+  export interface Data {
+    /**
+     * Collection ID
+     */
+    id: string;
+
+    /**
+     * Collection amount
+     */
+    amount: number;
+
+    /**
+     * Collection creation timestamp
+     */
+    createdAt: string;
+
+    /**
+     * Currency code
+     */
+    currency: string;
+
+    /**
+     * Customer details
+     */
+    customer: Data.Customer;
+
+    /**
+     * Client reference
+     */
+    reference: string;
+
+    /**
+     * Collection status
+     */
+    status: 'pending' | 'successful' | 'failed' | 'otp-required' | 'pay-offline';
+
+    /**
+     * Collection completion timestamp
+     */
+    completedAt?: string;
+
+    /**
+     * Who bears the collection platform fee
+     */
+    feeBearer?: 'merchant' | 'customer';
+
+    /**
+     * Collection narration
+     */
+    narration?: string;
+  }
+
+  export namespace Data {
+    /**
+     * Customer details
+     */
+    export interface Customer {
+      /**
+       * Customer name
+       */
+      name: string;
+
+      /**
+       * Mobile money operator
+       */
+      operator: string;
+
+      /**
+       * Customer phone number
+       */
+      phone: string;
+    }
+  }
+}
+
+export interface CollectionInitiateMobileMoneyCollectionResponse extends AccountsAPI.BilaResponse {
+  data?: CollectionInitiateMobileMoneyCollectionResponse.Data;
+}
+
+export namespace CollectionInitiateMobileMoneyCollectionResponse {
+  export interface Data {
+    /**
+     * Collection ID
+     */
+    id: string;
+
+    /**
+     * Collection amount
+     */
+    amount: number;
+
+    /**
+     * Collection creation timestamp
+     */
+    createdAt: string;
+
+    /**
+     * Currency code
+     */
+    currency: string;
+
+    /**
+     * Customer details
+     */
+    customer: Data.Customer;
+
+    /**
+     * Client reference
+     */
+    reference: string;
+
+    /**
+     * Collection status
+     */
+    status: 'pending' | 'successful' | 'failed' | 'otp-required' | 'pay-offline';
+
+    /**
+     * Collection completion timestamp
+     */
+    completedAt?: string;
+
+    /**
+     * Who bears the collection platform fee
+     */
+    feeBearer?: 'merchant' | 'customer';
+
+    /**
+     * Collection narration
+     */
+    narration?: string;
+  }
+
+  export namespace Data {
+    /**
+     * Customer details
+     */
+    export interface Customer {
+      /**
+       * Customer name
+       */
+      name: string;
+
+      /**
+       * Mobile money operator
+       */
+      operator: string;
+
+      /**
+       * Customer phone number
+       */
+      phone: string;
+    }
   }
 }
 
@@ -164,6 +525,10 @@ export interface CollectionInitiateMobileMoneyCollectionParams {
 
 export declare namespace Collections {
   export {
+    type CollectionRetrieveResponse as CollectionRetrieveResponse,
+    type CollectionListResponse as CollectionListResponse,
+    type CollectionGetStatusByReferenceResponse as CollectionGetStatusByReferenceResponse,
+    type CollectionInitiateMobileMoneyCollectionResponse as CollectionInitiateMobileMoneyCollectionResponse,
     type CollectionListParams as CollectionListParams,
     type CollectionInitiateMobileMoneyCollectionParams as CollectionInitiateMobileMoneyCollectionParams,
   };

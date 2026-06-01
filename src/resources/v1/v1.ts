@@ -5,8 +5,11 @@ import * as BilaAPI from './bila/bila';
 import {
   Bila,
   BilaListBanksParams,
+  BilaListBanksResponse,
   BilaResolveBankAccountParams,
+  BilaResolveBankAccountResponse,
   BilaResolveMobileMoneyParams,
+  BilaResolveMobileMoneyResponse,
 } from './bila/bila';
 
 export class V1 extends APIResource {
@@ -18,6 +21,9 @@ V1.Bila = Bila;
 export declare namespace V1 {
   export {
     Bila as Bila,
+    type BilaListBanksResponse as BilaListBanksResponse,
+    type BilaResolveBankAccountResponse as BilaResolveBankAccountResponse,
+    type BilaResolveMobileMoneyResponse as BilaResolveMobileMoneyResponse,
     type BilaListBanksParams as BilaListBanksParams,
     type BilaResolveBankAccountParams as BilaResolveBankAccountParams,
     type BilaResolveMobileMoneyParams as BilaResolveMobileMoneyParams,
