@@ -1,8 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../core/resource';
-import * as AccountsAPI from './accounts';
+import * as BilaAPI from './bila';
 import { APIPromise } from '../../../core/api-promise';
+import { BilaPage, type BilaPageParams, PagePromise } from '../../../core/pagination';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
@@ -30,184 +31,106 @@ export class Transactions extends APIResource {
    *
    * @example
    * ```ts
-   * const transactions =
-   *   await client.v1.bila.transactions.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const transaction of client.v1.bila.transactions.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: TransactionListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<TransactionListResponse> {
-    return this._client.get('/api/v1/bila/transactions', { query, ...options });
+  ): PagePromise<TransactionsBilaPage, Transaction> {
+    return this._client.getAPIList('/api/v1/bila/transactions', BilaPage<Transaction>, { query, ...options });
   }
 }
 
-export interface TransactionRetrieveResponse extends AccountsAPI.BilaResponse {
-  data?: TransactionRetrieveResponse.Data;
+export type TransactionsBilaPage = BilaPage<Transaction>;
+
+export interface PaginatedTransactions {
+  /**
+   * List of transactions
+   */
+  data: Array<Transaction>;
+
+  /**
+   * Pagination metadata
+   */
+  meta: BilaAPI.PaginationMeta;
 }
 
-export namespace TransactionRetrieveResponse {
-  export interface Data {
-    /**
-     * Transaction UUID
-     */
-    id: string;
+export interface Transaction {
+  /**
+   * Transaction UUID
+   */
+  id: string;
 
-    /**
-     * Account / wallet ID
-     */
-    accountId: string;
+  /**
+   * Account / wallet ID
+   */
+  accountId: string;
 
-    /**
-     * Transaction amount
-     */
-    amount: number;
+  /**
+   * Transaction amount
+   */
+  amount: number;
 
-    /**
-     * Balance after transaction
-     */
-    balanceAfter: number;
+  /**
+   * Balance after transaction
+   */
+  balanceAfter: number;
 
-    /**
-     * Balance before transaction
-     */
-    balanceBefore: number;
+  /**
+   * Balance before transaction
+   */
+  balanceBefore: number;
 
-    /**
-     * Transaction timestamp
-     */
-    createdAt: string;
+  /**
+   * Transaction timestamp
+   */
+  createdAt: string;
 
-    /**
-     * Currency code
-     */
-    currency: string;
+  /**
+   * Currency code
+   */
+  currency: string;
 
-    /**
-     * Transaction status
-     */
-    status: 'pending' | 'successful' | 'failed' | 'cancelled';
+  /**
+   * Transaction status
+   */
+  status: 'pending' | 'successful' | 'failed' | 'cancelled';
 
-    /**
-     * Transaction type
-     */
-    type: 'credit' | 'debit';
+  /**
+   * Transaction type
+   */
+  type: 'credit' | 'debit';
 
-    /**
-     * Transaction description
-     */
-    description?: string;
+  /**
+   * Transaction description
+   */
+  description?: string;
 
-    /**
-     * Client reference
-     */
-    reference?: string;
-  }
+  /**
+   * Client reference
+   */
+  reference?: string;
 }
 
-export interface TransactionListResponse extends AccountsAPI.BilaResponse {
-  data?: TransactionListResponse.Data;
+export interface TransactionRetrieveResponse {
+  /**
+   * Response message
+   */
+  message: string;
+
+  /**
+   * Request success status
+   */
+  status: boolean;
+
+  data?: Transaction;
 }
 
-export namespace TransactionListResponse {
-  export interface Data {
-    /**
-     * List of transactions
-     */
-    data: Array<Data.Data>;
-
-    /**
-     * Pagination metadata
-     */
-    meta: Data.Meta;
-  }
-
-  export namespace Data {
-    export interface Data {
-      /**
-       * Transaction UUID
-       */
-      id: string;
-
-      /**
-       * Account / wallet ID
-       */
-      accountId: string;
-
-      /**
-       * Transaction amount
-       */
-      amount: number;
-
-      /**
-       * Balance after transaction
-       */
-      balanceAfter: number;
-
-      /**
-       * Balance before transaction
-       */
-      balanceBefore: number;
-
-      /**
-       * Transaction timestamp
-       */
-      createdAt: string;
-
-      /**
-       * Currency code
-       */
-      currency: string;
-
-      /**
-       * Transaction status
-       */
-      status: 'pending' | 'successful' | 'failed' | 'cancelled';
-
-      /**
-       * Transaction type
-       */
-      type: 'credit' | 'debit';
-
-      /**
-       * Transaction description
-       */
-      description?: string;
-
-      /**
-       * Client reference
-       */
-      reference?: string;
-    }
-
-    /**
-     * Pagination metadata
-     */
-    export interface Meta {
-      /**
-       * Current page number
-       */
-      currentPage: number;
-
-      /**
-       * Total number of pages
-       */
-      pageCount: number;
-
-      /**
-       * Items per page
-       */
-      perPage: number;
-
-      /**
-       * Total number of records
-       */
-      total: number;
-    }
-  }
-}
-
-export interface TransactionListParams {
+export interface TransactionListParams extends BilaPageParams {
   /**
    * Filter by account ID
    */
@@ -217,16 +140,6 @@ export interface TransactionListParams {
    * Filter by end date (ISO 8601)
    */
   endDate?: string;
-
-  /**
-   * Page number (default: 1)
-   */
-  page?: number;
-
-  /**
-   * Items per page (default: 50)
-   */
-  perPage?: number;
 
   /**
    * Filter by start date (ISO 8601)
@@ -241,8 +154,10 @@ export interface TransactionListParams {
 
 export declare namespace Transactions {
   export {
+    type PaginatedTransactions as PaginatedTransactions,
+    type Transaction as Transaction,
     type TransactionRetrieveResponse as TransactionRetrieveResponse,
-    type TransactionListResponse as TransactionListResponse,
+    type TransactionsBilaPage as TransactionsBilaPage,
     type TransactionListParams as TransactionListParams,
   };
 }

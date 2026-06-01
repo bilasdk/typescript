@@ -3,59 +3,76 @@
 import { APIResource } from '../../../core/resource';
 import * as AccountsAPI from './accounts';
 import {
+  Account,
+  AccountBalance,
   AccountGetBalanceResponse,
   AccountListParams,
-  AccountListResponse,
   AccountRetrieveResponse,
   Accounts,
-  BilaResponse,
+  AccountsBilaPage,
+  PaginatedAccounts,
 } from './accounts';
 import * as CollectionsAPI from './collections';
 import {
+  Collection,
   CollectionGetStatusByReferenceResponse,
   CollectionInitiateMobileMoneyCollectionParams,
   CollectionInitiateMobileMoneyCollectionResponse,
   CollectionListParams,
-  CollectionListResponse,
   CollectionRetrieveResponse,
   Collections,
+  CollectionsBilaPage,
+  PaginatedCollections,
 } from './collections';
 import * as TransactionsAPI from './transactions';
 import {
+  PaginatedTransactions,
+  Transaction,
   TransactionListParams,
-  TransactionListResponse,
   TransactionRetrieveResponse,
   Transactions,
+  TransactionsBilaPage,
 } from './transactions';
 import * as TransferRecipientsAPI from './transfer-recipients';
 import {
+  PaginatedRecipients,
+  Recipient,
+  RecipientsBilaPage,
   TransferRecipientCreateBankAccountParams,
   TransferRecipientCreateBankAccountResponse,
   TransferRecipientCreateMobileMoneyParams,
   TransferRecipientCreateMobileMoneyResponse,
   TransferRecipientListParams,
-  TransferRecipientListResponse,
   TransferRecipientRetrieveResponse,
   TransferRecipients,
 } from './transfer-recipients';
 import * as TransfersAPI from './transfers';
 import {
+  PaginatedTransfers,
+  Transfer,
   TransferGetStatusByReferenceResponse,
   TransferInitiateBankTransferParams,
   TransferInitiateBankTransferResponse,
   TransferInitiateMobileMoneyTransferParams,
   TransferInitiateMobileMoneyTransferResponse,
   TransferListParams,
-  TransferListResponse,
   TransferRetrieveResponse,
   Transfers,
+  TransfersBilaPage,
 } from './transfers';
 import * as WebhooksAPI from './webhooks';
 import {
+  CreateWebhookConfig,
+  PaginatedDeliveries,
+  RotateSecretResult,
+  UpdateWebhookConfig,
+  WebhookConfig,
   WebhookCreateParams,
   WebhookCreateResponse,
+  WebhookDeactivateResponse,
+  WebhookDeliveriesBilaPage,
+  WebhookDelivery,
   WebhookListDeliveriesParams,
-  WebhookListDeliveriesResponse,
   WebhookListEventTypesResponse,
   WebhookListResponse,
   WebhookRotateSecretResponse,
@@ -129,7 +146,76 @@ export class Bila extends APIResource {
   }
 }
 
-export interface BilaListBanksResponse extends AccountsAPI.BilaResponse {
+export interface PaginationMeta {
+  /**
+   * Current page number
+   */
+  currentPage: number;
+
+  /**
+   * Total number of pages
+   */
+  pageCount: number;
+
+  /**
+   * Items per page
+   */
+  perPage: number;
+
+  /**
+   * Total number of records
+   */
+  total: number;
+}
+
+export interface ResolvedAccount {
+  /**
+   * Account holder name
+   */
+  accountName: string;
+
+  /**
+   * Country code
+   */
+  country: string;
+
+  /**
+   * Bank account number
+   */
+  accountNumber?: string;
+
+  /**
+   * Bank ID
+   */
+  bankId?: string;
+
+  /**
+   * Bank name
+   */
+  bankName?: string;
+
+  /**
+   * Mobile money operator
+   */
+  operator?: string;
+
+  /**
+   * Phone number
+   */
+  phone?: string;
+}
+
+export interface BilaListBanksResponse {
+  /**
+   * Response message
+   */
+  message: string;
+
+  /**
+   * Request success status
+   */
+  status: boolean;
+
   data?: Array<BilaListBanksResponse.Data>;
 }
 
@@ -162,90 +248,32 @@ export namespace BilaListBanksResponse {
   }
 }
 
-export interface BilaResolveBankAccountResponse extends AccountsAPI.BilaResponse {
-  data?: BilaResolveBankAccountResponse.Data;
+export interface BilaResolveBankAccountResponse {
+  /**
+   * Response message
+   */
+  message: string;
+
+  /**
+   * Request success status
+   */
+  status: boolean;
+
+  data?: ResolvedAccount;
 }
 
-export namespace BilaResolveBankAccountResponse {
-  export interface Data {
-    /**
-     * Account holder name
-     */
-    accountName: string;
+export interface BilaResolveMobileMoneyResponse {
+  /**
+   * Response message
+   */
+  message: string;
 
-    /**
-     * Country code
-     */
-    country: string;
+  /**
+   * Request success status
+   */
+  status: boolean;
 
-    /**
-     * Bank account number
-     */
-    accountNumber?: string;
-
-    /**
-     * Bank ID
-     */
-    bankId?: string;
-
-    /**
-     * Bank name
-     */
-    bankName?: string;
-
-    /**
-     * Mobile money operator
-     */
-    operator?: string;
-
-    /**
-     * Phone number
-     */
-    phone?: string;
-  }
-}
-
-export interface BilaResolveMobileMoneyResponse extends AccountsAPI.BilaResponse {
-  data?: BilaResolveMobileMoneyResponse.Data;
-}
-
-export namespace BilaResolveMobileMoneyResponse {
-  export interface Data {
-    /**
-     * Account holder name
-     */
-    accountName: string;
-
-    /**
-     * Country code
-     */
-    country: string;
-
-    /**
-     * Bank account number
-     */
-    accountNumber?: string;
-
-    /**
-     * Bank ID
-     */
-    bankId?: string;
-
-    /**
-     * Bank name
-     */
-    bankName?: string;
-
-    /**
-     * Mobile money operator
-     */
-    operator?: string;
-
-    /**
-     * Phone number
-     */
-    phone?: string;
-  }
+  data?: ResolvedAccount;
 }
 
 export interface BilaListBanksParams {
@@ -298,6 +326,8 @@ Bila.Webhooks = Webhooks;
 
 export declare namespace Bila {
   export {
+    type PaginationMeta as PaginationMeta,
+    type ResolvedAccount as ResolvedAccount,
     type BilaListBanksResponse as BilaListBanksResponse,
     type BilaResolveBankAccountResponse as BilaResolveBankAccountResponse,
     type BilaResolveMobileMoneyResponse as BilaResolveMobileMoneyResponse,
@@ -308,19 +338,23 @@ export declare namespace Bila {
 
   export {
     Accounts as Accounts,
-    type BilaResponse as BilaResponse,
+    type Account as Account,
+    type AccountBalance as AccountBalance,
+    type PaginatedAccounts as PaginatedAccounts,
     type AccountRetrieveResponse as AccountRetrieveResponse,
-    type AccountListResponse as AccountListResponse,
     type AccountGetBalanceResponse as AccountGetBalanceResponse,
+    type AccountsBilaPage as AccountsBilaPage,
     type AccountListParams as AccountListParams,
   };
 
   export {
     TransferRecipients as TransferRecipients,
+    type PaginatedRecipients as PaginatedRecipients,
+    type Recipient as Recipient,
     type TransferRecipientRetrieveResponse as TransferRecipientRetrieveResponse,
-    type TransferRecipientListResponse as TransferRecipientListResponse,
     type TransferRecipientCreateBankAccountResponse as TransferRecipientCreateBankAccountResponse,
     type TransferRecipientCreateMobileMoneyResponse as TransferRecipientCreateMobileMoneyResponse,
+    type RecipientsBilaPage as RecipientsBilaPage,
     type TransferRecipientListParams as TransferRecipientListParams,
     type TransferRecipientCreateBankAccountParams as TransferRecipientCreateBankAccountParams,
     type TransferRecipientCreateMobileMoneyParams as TransferRecipientCreateMobileMoneyParams,
@@ -328,11 +362,13 @@ export declare namespace Bila {
 
   export {
     Transfers as Transfers,
+    type PaginatedTransfers as PaginatedTransfers,
+    type Transfer as Transfer,
     type TransferRetrieveResponse as TransferRetrieveResponse,
-    type TransferListResponse as TransferListResponse,
     type TransferGetStatusByReferenceResponse as TransferGetStatusByReferenceResponse,
     type TransferInitiateBankTransferResponse as TransferInitiateBankTransferResponse,
     type TransferInitiateMobileMoneyTransferResponse as TransferInitiateMobileMoneyTransferResponse,
+    type TransfersBilaPage as TransfersBilaPage,
     type TransferListParams as TransferListParams,
     type TransferInitiateBankTransferParams as TransferInitiateBankTransferParams,
     type TransferInitiateMobileMoneyTransferParams as TransferInitiateMobileMoneyTransferParams,
@@ -340,29 +376,40 @@ export declare namespace Bila {
 
   export {
     Collections as Collections,
+    type Collection as Collection,
+    type PaginatedCollections as PaginatedCollections,
     type CollectionRetrieveResponse as CollectionRetrieveResponse,
-    type CollectionListResponse as CollectionListResponse,
     type CollectionGetStatusByReferenceResponse as CollectionGetStatusByReferenceResponse,
     type CollectionInitiateMobileMoneyCollectionResponse as CollectionInitiateMobileMoneyCollectionResponse,
+    type CollectionsBilaPage as CollectionsBilaPage,
     type CollectionListParams as CollectionListParams,
     type CollectionInitiateMobileMoneyCollectionParams as CollectionInitiateMobileMoneyCollectionParams,
   };
 
   export {
     Transactions as Transactions,
+    type PaginatedTransactions as PaginatedTransactions,
+    type Transaction as Transaction,
     type TransactionRetrieveResponse as TransactionRetrieveResponse,
-    type TransactionListResponse as TransactionListResponse,
+    type TransactionsBilaPage as TransactionsBilaPage,
     type TransactionListParams as TransactionListParams,
   };
 
   export {
     Webhooks as Webhooks,
+    type CreateWebhookConfig as CreateWebhookConfig,
+    type PaginatedDeliveries as PaginatedDeliveries,
+    type RotateSecretResult as RotateSecretResult,
+    type UpdateWebhookConfig as UpdateWebhookConfig,
+    type WebhookConfig as WebhookConfig,
+    type WebhookDelivery as WebhookDelivery,
     type WebhookCreateResponse as WebhookCreateResponse,
     type WebhookUpdateResponse as WebhookUpdateResponse,
     type WebhookListResponse as WebhookListResponse,
-    type WebhookListDeliveriesResponse as WebhookListDeliveriesResponse,
+    type WebhookDeactivateResponse as WebhookDeactivateResponse,
     type WebhookListEventTypesResponse as WebhookListEventTypesResponse,
     type WebhookRotateSecretResponse as WebhookRotateSecretResponse,
+    type WebhookDeliveriesBilaPage as WebhookDeliveriesBilaPage,
     type WebhookCreateParams as WebhookCreateParams,
     type WebhookUpdateParams as WebhookUpdateParams,
     type WebhookListDeliveriesParams as WebhookListDeliveriesParams,
