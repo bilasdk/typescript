@@ -30,7 +30,10 @@ const client = new Bila({
   environment: 'sandbox', // defaults to 'production'
 });
 
-const accounts = await client.v1.bila.accounts.list();
+const page = await client.v1.bila.accounts.list();
+const account = page.data?.data[0];
+
+console.log(account.id);
 ```
 
 ### Request & Response types
@@ -46,7 +49,7 @@ const client = new Bila({
   environment: 'sandbox', // defaults to 'production'
 });
 
-const accounts: Bila.V1.Bila.AccountListResponse = await client.v1.bila.accounts.list();
+const [account]: [Bila.V1.Bila.Account] = await client.v1.bila.accounts.list();
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -59,7 +62,7 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-const accounts = await client.v1.bila.accounts.list().catch(async (err) => {
+const page = await client.v1.bila.accounts.list().catch(async (err) => {
   if (err instanceof Bila.APIError) {
     console.log(err.status); // 400
     console.log(err.name); // BadRequestError
@@ -125,6 +128,37 @@ On timeout, an `APIConnectionTimeoutError` is thrown.
 
 Note that requests which time out will be [retried twice by default](#retries).
 
+## Auto-pagination
+
+List methods in the Bila API are paginated.
+You can use the `for await … of` syntax to iterate through items across all pages:
+
+```ts
+async function fetchAllAccounts(params) {
+  const allAccounts = [];
+  // Automatically fetches more pages as needed.
+  for await (const account of client.v1.bila.accounts.list({ page: 1, perPage: 50 })) {
+    allAccounts.push(account);
+  }
+  return allAccounts;
+}
+```
+
+Alternatively, you can request a single page at a time:
+
+```ts
+let page = await client.v1.bila.accounts.list({ page: 1, perPage: 50 });
+for (const account of page.data?.data) {
+  console.log(account);
+}
+
+// Convenience methods are provided for manually paginating:
+while (page.hasNextPage()) {
+  page = await page.getNextPage();
+  // ...
+}
+```
+
 ## Advanced Usage
 
 ### Accessing raw Response data (e.g., headers)
@@ -143,9 +177,11 @@ const response = await client.v1.bila.accounts.list().asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: accounts, response: raw } = await client.v1.bila.accounts.list().withResponse();
+const { data: page, response: raw } = await client.v1.bila.accounts.list().withResponse();
 console.log(raw.headers.get('X-My-Header'));
-console.log(accounts);
+for await (const account of page) {
+  console.log(account.id);
+}
 ```
 
 ### Logging

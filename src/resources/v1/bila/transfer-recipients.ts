@@ -1,8 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../core/resource';
-import * as AccountsAPI from './accounts';
+import * as BilaAPI from './bila';
 import { APIPromise } from '../../../core/api-promise';
+import { BilaPage, type BilaPageParams, PagePromise } from '../../../core/pagination';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
@@ -30,15 +31,20 @@ export class TransferRecipients extends APIResource {
    *
    * @example
    * ```ts
-   * const transferRecipients =
-   *   await client.v1.bila.transferRecipients.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const recipient of client.v1.bila.transferRecipients.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: TransferRecipientListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<TransferRecipientListResponse> {
-    return this._client.get('/api/v1/bila/transfer-recipients', { query, ...options });
+  ): PagePromise<RecipientsBilaPage, Recipient> {
+    return this._client.getAPIList('/api/v1/bila/transfer-recipients', BilaPage<Recipient>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -82,288 +88,115 @@ export class TransferRecipients extends APIResource {
   }
 }
 
-export interface TransferRecipientRetrieveResponse extends AccountsAPI.BilaResponse {
-  data?: TransferRecipientRetrieveResponse.Data;
-}
+export type RecipientsBilaPage = BilaPage<Recipient>;
 
-export namespace TransferRecipientRetrieveResponse {
-  export interface Data {
-    /**
-     * Recipient UUID
-     */
-    id: string;
-
-    /**
-     * Account holder name
-     */
-    accountName: string;
-
-    /**
-     * Country code
-     */
-    country: string;
-
-    /**
-     * Creation timestamp
-     */
-    createdAt: string;
-
-    /**
-     * Recipient type
-     */
-    type: 'bank-account' | 'mobile-money';
-
-    /**
-     * Bank account number (bank-account only)
-     */
-    accountNumber?: string;
-
-    /**
-     * Bank ID (bank-account only)
-     */
-    bankId?: string;
-
-    /**
-     * Bank name (bank-account only)
-     */
-    bankName?: string;
-
-    /**
-     * Mobile money operator (mobile-money only)
-     */
-    operator?: string;
-
-    /**
-     * Phone number (mobile-money only)
-     */
-    phone?: string;
-  }
-}
-
-export interface TransferRecipientListResponse extends AccountsAPI.BilaResponse {
-  data?: TransferRecipientListResponse.Data;
-}
-
-export namespace TransferRecipientListResponse {
-  export interface Data {
-    /**
-     * List of recipients
-     */
-    data: Array<Data.Data>;
-
-    /**
-     * Pagination metadata
-     */
-    meta: Data.Meta;
-  }
-
-  export namespace Data {
-    export interface Data {
-      /**
-       * Recipient UUID
-       */
-      id: string;
-
-      /**
-       * Account holder name
-       */
-      accountName: string;
-
-      /**
-       * Country code
-       */
-      country: string;
-
-      /**
-       * Creation timestamp
-       */
-      createdAt: string;
-
-      /**
-       * Recipient type
-       */
-      type: 'bank-account' | 'mobile-money';
-
-      /**
-       * Bank account number (bank-account only)
-       */
-      accountNumber?: string;
-
-      /**
-       * Bank ID (bank-account only)
-       */
-      bankId?: string;
-
-      /**
-       * Bank name (bank-account only)
-       */
-      bankName?: string;
-
-      /**
-       * Mobile money operator (mobile-money only)
-       */
-      operator?: string;
-
-      /**
-       * Phone number (mobile-money only)
-       */
-      phone?: string;
-    }
-
-    /**
-     * Pagination metadata
-     */
-    export interface Meta {
-      /**
-       * Current page number
-       */
-      currentPage: number;
-
-      /**
-       * Total number of pages
-       */
-      pageCount: number;
-
-      /**
-       * Items per page
-       */
-      perPage: number;
-
-      /**
-       * Total number of records
-       */
-      total: number;
-    }
-  }
-}
-
-export interface TransferRecipientCreateBankAccountResponse extends AccountsAPI.BilaResponse {
-  data?: TransferRecipientCreateBankAccountResponse.Data;
-}
-
-export namespace TransferRecipientCreateBankAccountResponse {
-  export interface Data {
-    /**
-     * Recipient UUID
-     */
-    id: string;
-
-    /**
-     * Account holder name
-     */
-    accountName: string;
-
-    /**
-     * Country code
-     */
-    country: string;
-
-    /**
-     * Creation timestamp
-     */
-    createdAt: string;
-
-    /**
-     * Recipient type
-     */
-    type: 'bank-account' | 'mobile-money';
-
-    /**
-     * Bank account number (bank-account only)
-     */
-    accountNumber?: string;
-
-    /**
-     * Bank ID (bank-account only)
-     */
-    bankId?: string;
-
-    /**
-     * Bank name (bank-account only)
-     */
-    bankName?: string;
-
-    /**
-     * Mobile money operator (mobile-money only)
-     */
-    operator?: string;
-
-    /**
-     * Phone number (mobile-money only)
-     */
-    phone?: string;
-  }
-}
-
-export interface TransferRecipientCreateMobileMoneyResponse extends AccountsAPI.BilaResponse {
-  data?: TransferRecipientCreateMobileMoneyResponse.Data;
-}
-
-export namespace TransferRecipientCreateMobileMoneyResponse {
-  export interface Data {
-    /**
-     * Recipient UUID
-     */
-    id: string;
-
-    /**
-     * Account holder name
-     */
-    accountName: string;
-
-    /**
-     * Country code
-     */
-    country: string;
-
-    /**
-     * Creation timestamp
-     */
-    createdAt: string;
-
-    /**
-     * Recipient type
-     */
-    type: 'bank-account' | 'mobile-money';
-
-    /**
-     * Bank account number (bank-account only)
-     */
-    accountNumber?: string;
-
-    /**
-     * Bank ID (bank-account only)
-     */
-    bankId?: string;
-
-    /**
-     * Bank name (bank-account only)
-     */
-    bankName?: string;
-
-    /**
-     * Mobile money operator (mobile-money only)
-     */
-    operator?: string;
-
-    /**
-     * Phone number (mobile-money only)
-     */
-    phone?: string;
-  }
-}
-
-export interface TransferRecipientListParams {
+export interface PaginatedRecipients {
   /**
-   * Page number (default: 1)
+   * List of recipients
    */
-  page?: number;
+  data: Array<Recipient>;
 
   /**
-   * Items per page (default: 50)
+   * Pagination metadata
    */
-  perPage?: number;
+  meta: BilaAPI.PaginationMeta;
+}
 
+export interface Recipient {
+  /**
+   * Recipient UUID
+   */
+  id: string;
+
+  /**
+   * Account holder name
+   */
+  accountName: string;
+
+  /**
+   * Country code
+   */
+  country: string;
+
+  /**
+   * Creation timestamp
+   */
+  createdAt: string;
+
+  /**
+   * Recipient type
+   */
+  type: 'bank-account' | 'mobile-money';
+
+  /**
+   * Bank account number (bank-account only)
+   */
+  accountNumber?: string;
+
+  /**
+   * Bank ID (bank-account only)
+   */
+  bankId?: string;
+
+  /**
+   * Bank name (bank-account only)
+   */
+  bankName?: string;
+
+  /**
+   * Mobile money operator (mobile-money only)
+   */
+  operator?: string;
+
+  /**
+   * Phone number (mobile-money only)
+   */
+  phone?: string;
+}
+
+export interface TransferRecipientRetrieveResponse {
+  /**
+   * Response message
+   */
+  message: string;
+
+  /**
+   * Request success status
+   */
+  status: boolean;
+
+  data?: Recipient;
+}
+
+export interface TransferRecipientCreateBankAccountResponse {
+  /**
+   * Response message
+   */
+  message: string;
+
+  /**
+   * Request success status
+   */
+  status: boolean;
+
+  data?: Recipient;
+}
+
+export interface TransferRecipientCreateMobileMoneyResponse {
+  /**
+   * Response message
+   */
+  message: string;
+
+  /**
+   * Request success status
+   */
+  status: boolean;
+
+  data?: Recipient;
+}
+
+export interface TransferRecipientListParams extends BilaPageParams {
   /**
    * Filter by recipient type
    */
@@ -416,10 +249,12 @@ export interface TransferRecipientCreateMobileMoneyParams {
 
 export declare namespace TransferRecipients {
   export {
+    type PaginatedRecipients as PaginatedRecipients,
+    type Recipient as Recipient,
     type TransferRecipientRetrieveResponse as TransferRecipientRetrieveResponse,
-    type TransferRecipientListResponse as TransferRecipientListResponse,
     type TransferRecipientCreateBankAccountResponse as TransferRecipientCreateBankAccountResponse,
     type TransferRecipientCreateMobileMoneyResponse as TransferRecipientCreateMobileMoneyResponse,
+    type RecipientsBilaPage as RecipientsBilaPage,
     type TransferRecipientListParams as TransferRecipientListParams,
     type TransferRecipientCreateBankAccountParams as TransferRecipientCreateBankAccountParams,
     type TransferRecipientCreateMobileMoneyParams as TransferRecipientCreateMobileMoneyParams,
