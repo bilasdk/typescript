@@ -68,8 +68,8 @@ describe('resource webhooks', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('listDeliveries', async () => {
-    const responsePromise = client.v1.bila.webhooks.listDeliveries('68f11209-451f-4a15-bfcd-d916eb8b09f4');
+  test.skip('getDeliveries', async () => {
+    const responsePromise = client.v1.bila.webhooks.getDeliveries('68f11209-451f-4a15-bfcd-d916eb8b09f4');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -80,10 +80,10 @@ describe('resource webhooks', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('listDeliveries: request options and params are passed correctly', async () => {
+  test.skip('getDeliveries: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.v1.bila.webhooks.listDeliveries(
+      client.v1.bila.webhooks.getDeliveries(
         '68f11209-451f-4a15-bfcd-d916eb8b09f4',
         {
           endDate: '2026-04-30T23:59:59.999Z',
@@ -99,8 +99,8 @@ describe('resource webhooks', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('listEventTypes', async () => {
-    const responsePromise = client.v1.bila.webhooks.listEventTypes();
+  test.skip('listEvents', async () => {
+    const responsePromise = client.v1.bila.webhooks.listEvents();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;

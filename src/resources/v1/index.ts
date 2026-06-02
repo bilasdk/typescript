@@ -2,8 +2,6 @@
 
 export {
   Bila,
-  type PaginationMeta,
-  type ResolvedAccount,
   type BilaListBanksResponse,
   type BilaResolveBankAccountResponse,
   type BilaResolveMobileMoneyResponse,

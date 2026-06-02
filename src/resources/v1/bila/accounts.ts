@@ -1,9 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../core/resource';
-import * as BilaAPI from './bila';
 import { APIPromise } from '../../../core/api-promise';
-import { BilaPage, type BilaPageParams, PagePromise } from '../../../core/pagination';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
@@ -30,17 +28,14 @@ export class Accounts extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const account of client.v1.bila.accounts.list()) {
-   *   // ...
-   * }
+   * const accounts = await client.v1.bila.accounts.list();
    * ```
    */
   list(
     query: AccountListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<AccountsBilaPage, Account> {
-    return this._client.getAPIList('/api/v1/bila/accounts', BilaPage<Account>, { query, ...options });
+  ): APIPromise<AccountListResponse> {
+    return this._client.get('/api/v1/bila/accounts', { query, ...options });
   }
 
   /**
@@ -58,139 +53,238 @@ export class Accounts extends APIResource {
   }
 }
 
-export type AccountsBilaPage = BilaPage<Account>;
-
-export interface Account {
+export interface BilaResponse {
   /**
-   * Account UUID
+   * Response message
    */
-  id: string;
+  message: string;
 
   /**
-   * Account creation timestamp
+   * Request success status
    */
-  createdAt: string;
-
-  /**
-   * Currency code
-   */
-  currency: string;
-
-  /**
-   * Account details
-   */
-  details: Account.Details;
-
-  /**
-   * Account status
-   */
-  status: 'active' | 'inactive' | 'suspended';
-
-  /**
-   * Account type
-   */
-  type: 'main' | 'sub' | 'virtual';
-
-  /**
-   * Available balance
-   */
-  availableBalance?: string;
-
-  /**
-   * Ledger balance
-   */
-  ledgerBalance?: string;
+  status: boolean;
 }
 
-export namespace Account {
-  /**
-   * Account details
-   */
-  export interface Details {
+export interface AccountRetrieveResponse extends BilaResponse {
+  data?: AccountRetrieveResponse.Data;
+}
+
+export namespace AccountRetrieveResponse {
+  export interface Data {
     /**
-     * Account holder name
+     * Account UUID
      */
-    accountName: string;
+    id: string;
 
     /**
-     * Account detail type
+     * Account creation timestamp
      */
-    type: string;
+    createdAt: string;
 
     /**
-     * Till number (for mobile money)
+     * Currency code
      */
-    tillNumber?: string;
+    currency: string;
+
+    /**
+     * Account details
+     */
+    details: Data.Details;
+
+    /**
+     * Account status
+     */
+    status: 'active' | 'inactive' | 'suspended';
+
+    /**
+     * Account type
+     */
+    type: 'main' | 'sub' | 'virtual';
+
+    /**
+     * Available balance
+     */
+    availableBalance?: string;
+
+    /**
+     * Ledger balance
+     */
+    ledgerBalance?: string;
+  }
+
+  export namespace Data {
+    /**
+     * Account details
+     */
+    export interface Details {
+      /**
+       * Account holder name
+       */
+      accountName: string;
+
+      /**
+       * Account detail type
+       */
+      type: string;
+
+      /**
+       * Till number (for mobile money)
+       */
+      tillNumber?: string;
+    }
   }
 }
 
-export interface AccountBalance {
-  /**
-   * Available balance
-   */
-  availableBalance: string;
-
-  /**
-   * Currency code
-   */
-  currency: string;
-
-  /**
-   * Ledger balance
-   */
-  ledgerBalance: string;
+export interface AccountListResponse extends BilaResponse {
+  data?: AccountListResponse.Data;
 }
 
-export interface PaginatedAccounts {
-  /**
-   * List of accounts
-   */
-  data: Array<Account>;
+export namespace AccountListResponse {
+  export interface Data {
+    /**
+     * List of accounts
+     */
+    data: Array<Data.Data>;
 
-  /**
-   * Pagination metadata
-   */
-  meta: BilaAPI.PaginationMeta;
+    /**
+     * Pagination metadata
+     */
+    meta: Data.Meta;
+  }
+
+  export namespace Data {
+    export interface Data {
+      /**
+       * Account UUID
+       */
+      id: string;
+
+      /**
+       * Account creation timestamp
+       */
+      createdAt: string;
+
+      /**
+       * Currency code
+       */
+      currency: string;
+
+      /**
+       * Account details
+       */
+      details: Data.Details;
+
+      /**
+       * Account status
+       */
+      status: 'active' | 'inactive' | 'suspended';
+
+      /**
+       * Account type
+       */
+      type: 'main' | 'sub' | 'virtual';
+
+      /**
+       * Available balance
+       */
+      availableBalance?: string;
+
+      /**
+       * Ledger balance
+       */
+      ledgerBalance?: string;
+    }
+
+    export namespace Data {
+      /**
+       * Account details
+       */
+      export interface Details {
+        /**
+         * Account holder name
+         */
+        accountName: string;
+
+        /**
+         * Account detail type
+         */
+        type: string;
+
+        /**
+         * Till number (for mobile money)
+         */
+        tillNumber?: string;
+      }
+    }
+
+    /**
+     * Pagination metadata
+     */
+    export interface Meta {
+      /**
+       * Current page number
+       */
+      currentPage: number;
+
+      /**
+       * Total number of pages
+       */
+      pageCount: number;
+
+      /**
+       * Items per page
+       */
+      perPage: number;
+
+      /**
+       * Total number of records
+       */
+      total: number;
+    }
+  }
 }
 
-export interface AccountRetrieveResponse {
-  /**
-   * Response message
-   */
-  message: string;
-
-  /**
-   * Request success status
-   */
-  status: boolean;
-
-  data?: Account;
+export interface AccountGetBalanceResponse extends BilaResponse {
+  data?: AccountGetBalanceResponse.Data;
 }
 
-export interface AccountGetBalanceResponse {
-  /**
-   * Response message
-   */
-  message: string;
+export namespace AccountGetBalanceResponse {
+  export interface Data {
+    /**
+     * Available balance
+     */
+    availableBalance: string;
 
-  /**
-   * Request success status
-   */
-  status: boolean;
+    /**
+     * Currency code
+     */
+    currency: string;
 
-  data?: AccountBalance;
+    /**
+     * Ledger balance
+     */
+    ledgerBalance: string;
+  }
 }
 
-export interface AccountListParams extends BilaPageParams {}
+export interface AccountListParams {
+  /**
+   * Page number (default: 1)
+   */
+  page?: number;
+
+  /**
+   * Items per page (default: 50)
+   */
+  perPage?: number;
+}
 
 export declare namespace Accounts {
   export {
-    type Account as Account,
-    type AccountBalance as AccountBalance,
-    type PaginatedAccounts as PaginatedAccounts,
+    type BilaResponse as BilaResponse,
     type AccountRetrieveResponse as AccountRetrieveResponse,
+    type AccountListResponse as AccountListResponse,
     type AccountGetBalanceResponse as AccountGetBalanceResponse,
-    type AccountsBilaPage as AccountsBilaPage,
     type AccountListParams as AccountListParams,
   };
 }

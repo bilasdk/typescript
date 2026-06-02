@@ -1,9 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../core/resource';
-import * as BilaAPI from './bila';
+import * as AccountsAPI from './accounts';
 import { APIPromise } from '../../../core/api-promise';
-import { BilaPage, type BilaPageParams, PagePromise } from '../../../core/pagination';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
@@ -57,12 +56,13 @@ export class Webhooks extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.v1.bila.webhooks.deactivate(
-   *   '68f11209-451f-4a15-bfcd-d916eb8b09f4',
-   * );
+   * const bilaResponse =
+   *   await client.v1.bila.webhooks.deactivate(
+   *     '68f11209-451f-4a15-bfcd-d916eb8b09f4',
+   *   );
    * ```
    */
-  deactivate(id: string, options?: RequestOptions): APIPromise<WebhookDeactivateResponse> {
+  deactivate(id: string, options?: RequestOptions): APIPromise<AccountsAPI.BilaResponse> {
     return this._client.delete(path`/api/v1/bila/webhooks/${id}`, options);
   }
 
@@ -71,23 +71,18 @@ export class Webhooks extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const webhookDelivery of client.v1.bila.webhooks.listDeliveries(
-   *   '68f11209-451f-4a15-bfcd-d916eb8b09f4',
-   * )) {
-   *   // ...
-   * }
+   * const response =
+   *   await client.v1.bila.webhooks.getDeliveries(
+   *     '68f11209-451f-4a15-bfcd-d916eb8b09f4',
+   *   );
    * ```
    */
-  listDeliveries(
+  getDeliveries(
     id: string,
-    query: WebhookListDeliveriesParams | null | undefined = {},
+    query: WebhookGetDeliveriesParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<WebhookDeliveriesBilaPage, WebhookDelivery> {
-    return this._client.getAPIList(path`/api/v1/bila/webhooks/${id}/deliveries`, BilaPage<WebhookDelivery>, {
-      query,
-      ...options,
-    });
+  ): APIPromise<WebhookGetDeliveriesResponse> {
+    return this._client.get(path`/api/v1/bila/webhooks/${id}/deliveries`, { query, ...options });
   }
 
   /**
@@ -95,11 +90,10 @@ export class Webhooks extends APIResource {
    *
    * @example
    * ```ts
-   * const response =
-   *   await client.v1.bila.webhooks.listEventTypes();
+   * const response = await client.v1.bila.webhooks.listEvents();
    * ```
    */
-  listEventTypes(options?: RequestOptions): APIPromise<WebhookListEventTypesResponse> {
+  listEvents(options?: RequestOptions): APIPromise<WebhookListEventsResponse> {
     return this._client.get('/api/v1/bila/webhooks/events', options);
   }
 
@@ -118,274 +112,256 @@ export class Webhooks extends APIResource {
   }
 }
 
-export type WebhookDeliveriesBilaPage = BilaPage<WebhookDelivery>;
-
-export interface CreateWebhookConfig {
-  /**
-   * Event types to subscribe to
-   */
-  events: Array<
-    | 'order.created'
-    | 'order.paid'
-    | 'order.cancelled'
-    | 'stock.low'
-    | 'payment.created'
-    | 'payment.completed'
-    | 'payment.failed'
-    | 'collection.pending'
-    | 'collection.completed'
-    | 'collection.failed'
-    | 'withdrawal.created'
-    | 'withdrawal.completed'
-    | 'withdrawal.failed'
-    | 'transaction.updated'
-    | 'transfer.pending'
-    | 'transfer.completed'
-    | 'transfer.failed'
-    | 'settlement.completed'
-  >;
-
-  /**
-   * Webhook endpoint URL
-   */
-  url: string;
+export interface WebhookCreateResponse extends AccountsAPI.BilaResponse {
+  data?: WebhookCreateResponse.Data;
 }
 
-export interface PaginatedDeliveries {
-  /**
-   * List of webhook deliveries
-   */
-  data: Array<WebhookDelivery>;
+export namespace WebhookCreateResponse {
+  export interface Data {
+    /**
+     * Webhook config UUID
+     */
+    id: string;
 
-  /**
-   * Pagination metadata
-   */
-  meta: BilaAPI.PaginationMeta;
+    createdAt: string;
+
+    /**
+     * Subscribed event types
+     */
+    events: Array<string>;
+
+    /**
+     * Whether the webhook is active
+     */
+    isActive: boolean;
+
+    /**
+     * Merchant UUID
+     */
+    merchantId: string;
+
+    /**
+     * Signing secret; plaintext only on create/rotate-secret, otherwise masked
+     */
+    secret: string;
+
+    updatedAt: string;
+
+    /**
+     * Webhook endpoint URL
+     */
+    url: string;
+  }
 }
 
-export interface RotateSecretResult {
-  /**
-   * New signing secret (64-character hex, shown once)
-   */
-  secret: string;
+export interface WebhookUpdateResponse extends AccountsAPI.BilaResponse {
+  data?: WebhookUpdateResponse.Data;
 }
 
-export interface UpdateWebhookConfig {
-  /**
-   * Event types to subscribe to
-   */
-  events?: Array<
-    | 'order.created'
-    | 'order.paid'
-    | 'order.cancelled'
-    | 'stock.low'
-    | 'payment.created'
-    | 'payment.completed'
-    | 'payment.failed'
-    | 'collection.pending'
-    | 'collection.completed'
-    | 'collection.failed'
-    | 'withdrawal.created'
-    | 'withdrawal.completed'
-    | 'withdrawal.failed'
-    | 'transaction.updated'
-    | 'transfer.pending'
-    | 'transfer.completed'
-    | 'transfer.failed'
-    | 'settlement.completed'
-  >;
+export namespace WebhookUpdateResponse {
+  export interface Data {
+    /**
+     * Webhook config UUID
+     */
+    id: string;
 
-  /**
-   * Whether the webhook is active
-   */
-  isActive?: boolean;
+    createdAt: string;
 
-  /**
-   * Webhook endpoint URL
-   */
-  url?: string;
+    /**
+     * Subscribed event types
+     */
+    events: Array<string>;
+
+    /**
+     * Whether the webhook is active
+     */
+    isActive: boolean;
+
+    /**
+     * Merchant UUID
+     */
+    merchantId: string;
+
+    /**
+     * Signing secret; plaintext only on create/rotate-secret, otherwise masked
+     */
+    secret: string;
+
+    updatedAt: string;
+
+    /**
+     * Webhook endpoint URL
+     */
+    url: string;
+  }
 }
 
-export interface WebhookConfig {
-  /**
-   * Webhook config UUID
-   */
-  id: string;
-
-  createdAt: string;
-
-  /**
-   * Subscribed event types
-   */
-  events: Array<string>;
-
-  /**
-   * Whether the webhook is active
-   */
-  isActive: boolean;
-
-  /**
-   * Merchant UUID
-   */
-  merchantId: string;
-
-  /**
-   * Signing secret; plaintext only on create/rotate-secret, otherwise masked
-   */
-  secret: string;
-
-  updatedAt: string;
-
-  /**
-   * Webhook endpoint URL
-   */
-  url: string;
+export interface WebhookListResponse extends AccountsAPI.BilaResponse {
+  data?: Array<WebhookListResponse.Data>;
 }
 
-export interface WebhookDelivery {
-  /**
-   * Delivery UUID
-   */
-  id: string;
+export namespace WebhookListResponse {
+  export interface Data {
+    /**
+     * Webhook config UUID
+     */
+    id: string;
 
-  /**
-   * Number of delivery attempts
-   */
-  attempts: number;
+    createdAt: string;
 
-  createdAt: string;
+    /**
+     * Subscribed event types
+     */
+    events: Array<string>;
 
-  /**
-   * When the delivery succeeded
-   */
-  deliveredAt: string | null;
+    /**
+     * Whether the webhook is active
+     */
+    isActive: boolean;
 
-  /**
-   * Webhook event type
-   */
-  eventType: string;
+    /**
+     * Merchant UUID
+     */
+    merchantId: string;
 
-  /**
-   * When the delivery permanently failed
-   */
-  failedAt: string | null;
+    /**
+     * Signing secret; plaintext only on create/rotate-secret, otherwise masked
+     */
+    secret: string;
 
-  /**
-   * Maximum delivery attempts
-   */
-  maxAttempts: number;
+    updatedAt: string;
 
-  /**
-   * When the next retry is scheduled
-   */
-  nextRetryAt: string | null;
-
-  /**
-   * Event payload JSON as stored for delivery
-   */
-  payload: { [key: string]: unknown };
-
-  /**
-   * Response body from the merchant endpoint (truncated)
-   */
-  responseBody: string | null;
-
-  /**
-   * HTTP status code from the merchant endpoint
-   */
-  responseStatus: number | null;
-
-  /**
-   * Delivery status
-   */
-  status: 'QUEUED' | 'DELIVERED' | 'FAILED' | 'RETRYING';
-
-  /**
-   * Webhook config UUID
-   */
-  webhookConfigId: string;
+    /**
+     * Webhook endpoint URL
+     */
+    url: string;
+  }
 }
 
-export interface WebhookCreateResponse {
-  /**
-   * Response message
-   */
-  message: string;
-
-  /**
-   * Request success status
-   */
-  status: boolean;
-
-  data?: WebhookConfig;
+export interface WebhookGetDeliveriesResponse extends AccountsAPI.BilaResponse {
+  data?: WebhookGetDeliveriesResponse.Data;
 }
 
-export interface WebhookUpdateResponse {
-  /**
-   * Response message
-   */
-  message: string;
+export namespace WebhookGetDeliveriesResponse {
+  export interface Data {
+    /**
+     * List of webhook deliveries
+     */
+    data: Array<Data.Data>;
 
-  /**
-   * Request success status
-   */
-  status: boolean;
+    /**
+     * Pagination metadata
+     */
+    meta: Data.Meta;
+  }
 
-  data?: WebhookConfig;
+  export namespace Data {
+    export interface Data {
+      /**
+       * Delivery UUID
+       */
+      id: string;
+
+      /**
+       * Number of delivery attempts
+       */
+      attempts: number;
+
+      createdAt: string;
+
+      /**
+       * When the delivery succeeded
+       */
+      deliveredAt: string | null;
+
+      /**
+       * Webhook event type
+       */
+      eventType: string;
+
+      /**
+       * When the delivery permanently failed
+       */
+      failedAt: string | null;
+
+      /**
+       * Maximum delivery attempts
+       */
+      maxAttempts: number;
+
+      /**
+       * When the next retry is scheduled
+       */
+      nextRetryAt: string | null;
+
+      /**
+       * Event payload JSON as stored for delivery
+       */
+      payload: { [key: string]: unknown };
+
+      /**
+       * Response body from the merchant endpoint (truncated)
+       */
+      responseBody: string | null;
+
+      /**
+       * HTTP status code from the merchant endpoint
+       */
+      responseStatus: number | null;
+
+      /**
+       * Delivery status
+       */
+      status: 'QUEUED' | 'DELIVERED' | 'FAILED' | 'RETRYING';
+
+      /**
+       * Webhook config UUID
+       */
+      webhookConfigId: string;
+    }
+
+    /**
+     * Pagination metadata
+     */
+    export interface Meta {
+      /**
+       * Current page number
+       */
+      currentPage: number;
+
+      /**
+       * Total number of pages
+       */
+      pageCount: number;
+
+      /**
+       * Items per page
+       */
+      perPage: number;
+
+      /**
+       * Total number of records
+       */
+      total: number;
+    }
+  }
 }
 
-export interface WebhookListResponse {
-  /**
-   * Response message
-   */
-  message: string;
-
-  /**
-   * Request success status
-   */
-  status: boolean;
-
-  data?: Array<WebhookConfig>;
-}
-
-export interface WebhookDeactivateResponse {
-  /**
-   * Response message
-   */
-  message: string;
-
-  /**
-   * Request success status
-   */
-  status: boolean;
-}
-
-export interface WebhookListEventTypesResponse {
-  /**
-   * Response message
-   */
-  message: string;
-
-  /**
-   * Request success status
-   */
-  status: boolean;
-
+export interface WebhookListEventsResponse extends AccountsAPI.BilaResponse {
   data?: Array<string>;
 }
 
-export interface WebhookRotateSecretResponse {
-  /**
-   * Response message
-   */
-  message: string;
+export interface WebhookRotateSecretResponse extends AccountsAPI.BilaResponse {
+  data?: WebhookRotateSecretResponse.Data;
+}
 
-  /**
-   * Request success status
-   */
-  status: boolean;
-
-  data?: RotateSecretResult;
+export namespace WebhookRotateSecretResponse {
+  export interface Data {
+    /**
+     * New signing secret (64-character hex, shown once)
+     */
+    secret: string;
+  }
 }
 
 export interface WebhookCreateParams {
@@ -455,7 +431,7 @@ export interface WebhookUpdateParams {
   url?: string;
 }
 
-export interface WebhookListDeliveriesParams extends BilaPageParams {
+export interface WebhookGetDeliveriesParams {
   /**
    * ISO 8601 end of createdAt range (inclusive)
    */
@@ -465,6 +441,16 @@ export interface WebhookListDeliveriesParams extends BilaPageParams {
    * Filter by event type
    */
   eventType?: string;
+
+  /**
+   * Page number
+   */
+  page?: number;
+
+  /**
+   * Items per page
+   */
+  perPage?: number;
 
   /**
    * ISO 8601 start of createdAt range (inclusive)
@@ -479,21 +465,14 @@ export interface WebhookListDeliveriesParams extends BilaPageParams {
 
 export declare namespace Webhooks {
   export {
-    type CreateWebhookConfig as CreateWebhookConfig,
-    type PaginatedDeliveries as PaginatedDeliveries,
-    type RotateSecretResult as RotateSecretResult,
-    type UpdateWebhookConfig as UpdateWebhookConfig,
-    type WebhookConfig as WebhookConfig,
-    type WebhookDelivery as WebhookDelivery,
     type WebhookCreateResponse as WebhookCreateResponse,
     type WebhookUpdateResponse as WebhookUpdateResponse,
     type WebhookListResponse as WebhookListResponse,
-    type WebhookDeactivateResponse as WebhookDeactivateResponse,
-    type WebhookListEventTypesResponse as WebhookListEventTypesResponse,
+    type WebhookGetDeliveriesResponse as WebhookGetDeliveriesResponse,
+    type WebhookListEventsResponse as WebhookListEventsResponse,
     type WebhookRotateSecretResponse as WebhookRotateSecretResponse,
-    type WebhookDeliveriesBilaPage as WebhookDeliveriesBilaPage,
     type WebhookCreateParams as WebhookCreateParams,
     type WebhookUpdateParams as WebhookUpdateParams,
-    type WebhookListDeliveriesParams as WebhookListDeliveriesParams,
+    type WebhookGetDeliveriesParams as WebhookGetDeliveriesParams,
   };
 }
