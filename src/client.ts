@@ -34,8 +34,8 @@ import {
 import { isEmptyObj } from './internal/utils/values';
 
 const environments = {
-  production: 'https://api.usebila.com/api/v1',
-  sandbox: 'https://sandbox.usebila.com/api/v1',
+  production: 'https://api.usebila.com',
+  sandbox: 'https://sandbox.usebila.com',
 };
 type Environment = keyof typeof environments;
 
@@ -49,8 +49,8 @@ export interface ClientOptions {
    * Specifies the environment to use for the API.
    *
    * Each environment maps to a different base URL:
-   * - `production` corresponds to `https://api.usebila.com/api/v1`
-   * - `sandbox` corresponds to `https://sandbox.usebila.com/api/v1`
+   * - `production` corresponds to `https://api.usebila.com`
+   * - `sandbox` corresponds to `https://sandbox.usebila.com`
    */
   environment?: Environment | undefined;
 
@@ -146,7 +146,7 @@ export class Bila {
    *
    * @param {string | undefined} [opts.apiKey=process.env['BILA_API_KEY'] ?? undefined]
    * @param {Environment} [opts.environment=production] - Specifies the environment URL to use for the API.
-   * @param {string} [opts.baseURL=process.env['BILA_BASE_URL'] ?? https://api.usebila.com/api/v1] - Override the default base URL for the API.
+   * @param {string} [opts.baseURL=process.env['BILA_BASE_URL'] ?? https://api.usebila.com] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
    * @param {Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.

@@ -322,13 +322,13 @@ describe('instantiate client', () => {
     test('empty env variable', () => {
       process.env['BILA_BASE_URL'] = ''; // empty
       const client = new Bila({ apiKey: 'My API Key' });
-      expect(client.baseURL).toEqual('https://api.usebila.com/api/v1');
+      expect(client.baseURL).toEqual('https://api.usebila.com');
     });
 
     test('blank env variable', () => {
       process.env['BILA_BASE_URL'] = '  '; // blank
       const client = new Bila({ apiKey: 'My API Key' });
-      expect(client.baseURL).toEqual('https://api.usebila.com/api/v1');
+      expect(client.baseURL).toEqual('https://api.usebila.com');
     });
 
     test('env variable with environment', () => {
@@ -345,7 +345,7 @@ describe('instantiate client', () => {
         baseURL: null,
         environment: 'production',
       });
-      expect(client.baseURL).toEqual('https://api.usebila.com/api/v1');
+      expect(client.baseURL).toEqual('https://api.usebila.com');
     });
 
     test('in request options', () => {
