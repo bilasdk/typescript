@@ -1,9 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../core/resource';
-import * as BilaAPI from './bila';
+import * as AccountsAPI from './accounts';
 import { APIPromise } from '../../../core/api-promise';
-import { BilaPage, type BilaPageParams, PagePromise } from '../../../core/pagination';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
@@ -31,17 +30,14 @@ export class Collections extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const collection of client.v1.bila.collections.list()) {
-   *   // ...
-   * }
+   * const collections = await client.v1.bila.collections.list();
    * ```
    */
   list(
     query: CollectionListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<CollectionsBilaPage, Collection> {
-    return this._client.getAPIList('/api/v1/bila/collections', BilaPage<Collection>, { query, ...options });
+  ): APIPromise<CollectionListResponse> {
+    return this._client.get('/api/v1/bila/collections', { query, ...options });
   }
 
   /**
@@ -89,137 +85,366 @@ export class Collections extends APIResource {
   }
 }
 
-export type CollectionsBilaPage = BilaPage<Collection>;
-
-export interface Collection {
-  /**
-   * Collection ID
-   */
-  id: string;
-
-  /**
-   * Collection amount
-   */
-  amount: number;
-
-  /**
-   * Collection creation timestamp
-   */
-  createdAt: string;
-
-  /**
-   * Currency code
-   */
-  currency: string;
-
-  /**
-   * Customer details
-   */
-  customer: Collection.Customer;
-
-  /**
-   * Client reference
-   */
-  reference: string;
-
-  /**
-   * Collection status
-   */
-  status: 'pending' | 'successful' | 'failed' | 'otp-required' | 'pay-offline';
-
-  /**
-   * Collection completion timestamp
-   */
-  completedAt?: string;
-
-  /**
-   * Who bears the collection platform fee
-   */
-  feeBearer?: 'merchant' | 'customer';
-
-  /**
-   * Collection narration
-   */
-  narration?: string;
+export interface CollectionRetrieveResponse extends AccountsAPI.BilaResponse {
+  data?: CollectionRetrieveResponse.Data;
 }
 
-export namespace Collection {
-  /**
-   * Customer details
-   */
-  export interface Customer {
+export namespace CollectionRetrieveResponse {
+  export interface Data {
     /**
-     * Customer name
+     * Collection ID
      */
-    name: string;
+    id: string;
 
     /**
-     * Mobile money operator
+     * Collection amount
      */
-    operator: string;
+    amount: number;
 
     /**
-     * Customer phone number
+     * Collection creation timestamp
      */
-    phone: string;
+    createdAt: string;
+
+    /**
+     * Currency code
+     */
+    currency: string;
+
+    /**
+     * Customer details
+     */
+    customer: Data.Customer;
+
+    /**
+     * Client reference
+     */
+    reference: string;
+
+    /**
+     * Collection status
+     */
+    status: 'pending' | 'successful' | 'failed' | 'otp-required' | 'pay-offline';
+
+    /**
+     * Collection completion timestamp
+     */
+    completedAt?: string;
+
+    /**
+     * Who bears the collection platform fee
+     */
+    feeBearer?: 'merchant' | 'customer';
+
+    /**
+     * Collection narration
+     */
+    narration?: string;
+  }
+
+  export namespace Data {
+    /**
+     * Customer details
+     */
+    export interface Customer {
+      /**
+       * Customer name
+       */
+      name: string;
+
+      /**
+       * Mobile money operator
+       */
+      operator: string;
+
+      /**
+       * Customer phone number
+       */
+      phone: string;
+    }
   }
 }
 
-export interface PaginatedCollections {
-  /**
-   * List of collections
-   */
-  data: Array<Collection>;
-
-  /**
-   * Pagination metadata
-   */
-  meta: BilaAPI.PaginationMeta;
+export interface CollectionListResponse extends AccountsAPI.BilaResponse {
+  data?: CollectionListResponse.Data;
 }
 
-export interface CollectionRetrieveResponse {
-  /**
-   * Response message
-   */
-  message: string;
+export namespace CollectionListResponse {
+  export interface Data {
+    /**
+     * List of collections
+     */
+    data: Array<Data.Data>;
 
-  /**
-   * Request success status
-   */
-  status: boolean;
+    /**
+     * Pagination metadata
+     */
+    meta: Data.Meta;
+  }
 
-  data?: Collection;
+  export namespace Data {
+    export interface Data {
+      /**
+       * Collection ID
+       */
+      id: string;
+
+      /**
+       * Collection amount
+       */
+      amount: number;
+
+      /**
+       * Collection creation timestamp
+       */
+      createdAt: string;
+
+      /**
+       * Currency code
+       */
+      currency: string;
+
+      /**
+       * Customer details
+       */
+      customer: Data.Customer;
+
+      /**
+       * Client reference
+       */
+      reference: string;
+
+      /**
+       * Collection status
+       */
+      status: 'pending' | 'successful' | 'failed' | 'otp-required' | 'pay-offline';
+
+      /**
+       * Collection completion timestamp
+       */
+      completedAt?: string;
+
+      /**
+       * Who bears the collection platform fee
+       */
+      feeBearer?: 'merchant' | 'customer';
+
+      /**
+       * Collection narration
+       */
+      narration?: string;
+    }
+
+    export namespace Data {
+      /**
+       * Customer details
+       */
+      export interface Customer {
+        /**
+         * Customer name
+         */
+        name: string;
+
+        /**
+         * Mobile money operator
+         */
+        operator: string;
+
+        /**
+         * Customer phone number
+         */
+        phone: string;
+      }
+    }
+
+    /**
+     * Pagination metadata
+     */
+    export interface Meta {
+      /**
+       * Current page number
+       */
+      currentPage: number;
+
+      /**
+       * Total number of pages
+       */
+      pageCount: number;
+
+      /**
+       * Items per page
+       */
+      perPage: number;
+
+      /**
+       * Total number of records
+       */
+      total: number;
+    }
+  }
 }
 
-export interface CollectionGetStatusByReferenceResponse {
-  /**
-   * Response message
-   */
-  message: string;
-
-  /**
-   * Request success status
-   */
-  status: boolean;
-
-  data?: Collection;
+export interface CollectionGetStatusByReferenceResponse extends AccountsAPI.BilaResponse {
+  data?: CollectionGetStatusByReferenceResponse.Data;
 }
 
-export interface CollectionInitiateMobileMoneyCollectionResponse {
-  /**
-   * Response message
-   */
-  message: string;
+export namespace CollectionGetStatusByReferenceResponse {
+  export interface Data {
+    /**
+     * Collection ID
+     */
+    id: string;
 
-  /**
-   * Request success status
-   */
-  status: boolean;
+    /**
+     * Collection amount
+     */
+    amount: number;
 
-  data?: Collection;
+    /**
+     * Collection creation timestamp
+     */
+    createdAt: string;
+
+    /**
+     * Currency code
+     */
+    currency: string;
+
+    /**
+     * Customer details
+     */
+    customer: Data.Customer;
+
+    /**
+     * Client reference
+     */
+    reference: string;
+
+    /**
+     * Collection status
+     */
+    status: 'pending' | 'successful' | 'failed' | 'otp-required' | 'pay-offline';
+
+    /**
+     * Collection completion timestamp
+     */
+    completedAt?: string;
+
+    /**
+     * Who bears the collection platform fee
+     */
+    feeBearer?: 'merchant' | 'customer';
+
+    /**
+     * Collection narration
+     */
+    narration?: string;
+  }
+
+  export namespace Data {
+    /**
+     * Customer details
+     */
+    export interface Customer {
+      /**
+       * Customer name
+       */
+      name: string;
+
+      /**
+       * Mobile money operator
+       */
+      operator: string;
+
+      /**
+       * Customer phone number
+       */
+      phone: string;
+    }
+  }
 }
 
-export interface CollectionListParams extends BilaPageParams {
+export interface CollectionInitiateMobileMoneyCollectionResponse extends AccountsAPI.BilaResponse {
+  data?: CollectionInitiateMobileMoneyCollectionResponse.Data;
+}
+
+export namespace CollectionInitiateMobileMoneyCollectionResponse {
+  export interface Data {
+    /**
+     * Collection ID
+     */
+    id: string;
+
+    /**
+     * Collection amount
+     */
+    amount: number;
+
+    /**
+     * Collection creation timestamp
+     */
+    createdAt: string;
+
+    /**
+     * Currency code
+     */
+    currency: string;
+
+    /**
+     * Customer details
+     */
+    customer: Data.Customer;
+
+    /**
+     * Client reference
+     */
+    reference: string;
+
+    /**
+     * Collection status
+     */
+    status: 'pending' | 'successful' | 'failed' | 'otp-required' | 'pay-offline';
+
+    /**
+     * Collection completion timestamp
+     */
+    completedAt?: string;
+
+    /**
+     * Who bears the collection platform fee
+     */
+    feeBearer?: 'merchant' | 'customer';
+
+    /**
+     * Collection narration
+     */
+    narration?: string;
+  }
+
+  export namespace Data {
+    /**
+     * Customer details
+     */
+    export interface Customer {
+      /**
+       * Customer name
+       */
+      name: string;
+
+      /**
+       * Mobile money operator
+       */
+      operator: string;
+
+      /**
+       * Customer phone number
+       */
+      phone: string;
+    }
+  }
+}
+
+export interface CollectionListParams {
   /**
    * Filter by account ID
    */
@@ -229,6 +454,16 @@ export interface CollectionListParams extends BilaPageParams {
    * Filter by end date (ISO 8601)
    */
   endDate?: string;
+
+  /**
+   * Page number (default: 1)
+   */
+  page?: number;
+
+  /**
+   * Items per page (default: 50)
+   */
+  perPage?: number;
 
   /**
    * Filter by start date (ISO 8601)
@@ -290,12 +525,10 @@ export interface CollectionInitiateMobileMoneyCollectionParams {
 
 export declare namespace Collections {
   export {
-    type Collection as Collection,
-    type PaginatedCollections as PaginatedCollections,
     type CollectionRetrieveResponse as CollectionRetrieveResponse,
+    type CollectionListResponse as CollectionListResponse,
     type CollectionGetStatusByReferenceResponse as CollectionGetStatusByReferenceResponse,
     type CollectionInitiateMobileMoneyCollectionResponse as CollectionInitiateMobileMoneyCollectionResponse,
-    type CollectionsBilaPage as CollectionsBilaPage,
     type CollectionListParams as CollectionListParams,
     type CollectionInitiateMobileMoneyCollectionParams as CollectionInitiateMobileMoneyCollectionParams,
   };

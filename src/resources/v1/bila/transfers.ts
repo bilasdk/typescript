@@ -1,9 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../core/resource';
-import * as BilaAPI from './bila';
+import * as AccountsAPI from './accounts';
 import { APIPromise } from '../../../core/api-promise';
-import { BilaPage, type BilaPageParams, PagePromise } from '../../../core/pagination';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
@@ -30,17 +29,14 @@ export class Transfers extends APIResource {
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const transfer of client.v1.bila.transfers.list()) {
-   *   // ...
-   * }
+   * const transfers = await client.v1.bila.transfers.list();
    * ```
    */
   list(
     query: TransferListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<TransfersBilaPage, Transfer> {
-    return this._client.getAPIList('/api/v1/bila/transfers', BilaPage<Transfer>, { query, ...options });
+  ): APIPromise<TransferListResponse> {
+    return this._client.get('/api/v1/bila/transfers', { query, ...options });
   }
 
   /**
@@ -108,161 +104,496 @@ export class Transfers extends APIResource {
   }
 }
 
-export type TransfersBilaPage = BilaPage<Transfer>;
-
-export interface PaginatedTransfers {
-  /**
-   * List of transfers
-   */
-  data: Array<Transfer>;
-
-  /**
-   * Pagination metadata
-   */
-  meta: BilaAPI.PaginationMeta;
+export interface TransferRetrieveResponse extends AccountsAPI.BilaResponse {
+  data?: TransferRetrieveResponse.Data;
 }
 
-export interface Transfer {
-  /**
-   * Transfer ID
-   */
-  id: string;
-
-  /**
-   * Transfer amount
-   */
-  amount: number;
-
-  /**
-   * Creation timestamp (from Payment)
-   */
-  createdAt: string;
-
-  /**
-   * Currency code
-   */
-  currency: string;
-
-  /**
-   * Recipient details
-   */
-  recipient: Transfer.Recipient;
-
-  /**
-   * Client reference
-   */
-  reference: string;
-
-  /**
-   * Transfer status
-   */
-  status: 'pending' | 'successful' | 'failed';
-
-  /**
-   * Transfer type
-   */
-  type: 'bank-account' | 'mobile-money';
-
-  /**
-   * Completion timestamp (from Payment.processedAt)
-   */
-  completedAt?: string;
-
-  /**
-   * Transfer narration
-   */
-  narration?: string;
-}
-
-export namespace Transfer {
-  /**
-   * Recipient details
-   */
-  export interface Recipient {
+export namespace TransferRetrieveResponse {
+  export interface Data {
     /**
-     * Account holder / recipient name
+     * Transfer ID
      */
-    accountName: string;
+    id: string;
 
     /**
-     * Bank account number (bank-account only)
+     * Transfer amount
      */
-    accountNumber?: string;
+    amount: number;
 
     /**
-     * Bank name (bank-account only)
+     * Creation timestamp (from Payment)
      */
-    bankName?: string;
+    createdAt: string;
 
     /**
-     * Mobile money operator (mobile-money only)
+     * Currency code
      */
-    operator?: string;
+    currency: string;
 
     /**
-     * Phone number (mobile-money only)
+     * Recipient details
      */
-    phone?: string;
+    recipient: Data.Recipient;
+
+    /**
+     * Client reference
+     */
+    reference: string;
+
+    /**
+     * Transfer status
+     */
+    status: 'pending' | 'successful' | 'failed';
+
+    /**
+     * Transfer type
+     */
+    type: 'bank-account' | 'mobile-money';
+
+    /**
+     * Completion timestamp (from Payment.processedAt)
+     */
+    completedAt?: string;
+
+    /**
+     * Transfer narration
+     */
+    narration?: string;
+  }
+
+  export namespace Data {
+    /**
+     * Recipient details
+     */
+    export interface Recipient {
+      /**
+       * Account holder / recipient name
+       */
+      accountName: string;
+
+      /**
+       * Bank account number (bank-account only)
+       */
+      accountNumber?: string;
+
+      /**
+       * Bank name (bank-account only)
+       */
+      bankName?: string;
+
+      /**
+       * Mobile money operator (mobile-money only)
+       */
+      operator?: string;
+
+      /**
+       * Phone number (mobile-money only)
+       */
+      phone?: string;
+    }
   }
 }
 
-export interface TransferRetrieveResponse {
-  /**
-   * Response message
-   */
-  message: string;
-
-  /**
-   * Request success status
-   */
-  status: boolean;
-
-  data?: Transfer;
+export interface TransferListResponse extends AccountsAPI.BilaResponse {
+  data?: TransferListResponse.Data;
 }
 
-export interface TransferGetStatusByReferenceResponse {
-  /**
-   * Response message
-   */
-  message: string;
+export namespace TransferListResponse {
+  export interface Data {
+    /**
+     * List of transfers
+     */
+    data: Array<Data.Data>;
 
-  /**
-   * Request success status
-   */
-  status: boolean;
+    /**
+     * Pagination metadata
+     */
+    meta: Data.Meta;
+  }
 
-  data?: Transfer;
+  export namespace Data {
+    export interface Data {
+      /**
+       * Transfer ID
+       */
+      id: string;
+
+      /**
+       * Transfer amount
+       */
+      amount: number;
+
+      /**
+       * Creation timestamp (from Payment)
+       */
+      createdAt: string;
+
+      /**
+       * Currency code
+       */
+      currency: string;
+
+      /**
+       * Recipient details
+       */
+      recipient: Data.Recipient;
+
+      /**
+       * Client reference
+       */
+      reference: string;
+
+      /**
+       * Transfer status
+       */
+      status: 'pending' | 'successful' | 'failed';
+
+      /**
+       * Transfer type
+       */
+      type: 'bank-account' | 'mobile-money';
+
+      /**
+       * Completion timestamp (from Payment.processedAt)
+       */
+      completedAt?: string;
+
+      /**
+       * Transfer narration
+       */
+      narration?: string;
+    }
+
+    export namespace Data {
+      /**
+       * Recipient details
+       */
+      export interface Recipient {
+        /**
+         * Account holder / recipient name
+         */
+        accountName: string;
+
+        /**
+         * Bank account number (bank-account only)
+         */
+        accountNumber?: string;
+
+        /**
+         * Bank name (bank-account only)
+         */
+        bankName?: string;
+
+        /**
+         * Mobile money operator (mobile-money only)
+         */
+        operator?: string;
+
+        /**
+         * Phone number (mobile-money only)
+         */
+        phone?: string;
+      }
+    }
+
+    /**
+     * Pagination metadata
+     */
+    export interface Meta {
+      /**
+       * Current page number
+       */
+      currentPage: number;
+
+      /**
+       * Total number of pages
+       */
+      pageCount: number;
+
+      /**
+       * Items per page
+       */
+      perPage: number;
+
+      /**
+       * Total number of records
+       */
+      total: number;
+    }
+  }
 }
 
-export interface TransferInitiateBankTransferResponse {
-  /**
-   * Response message
-   */
-  message: string;
-
-  /**
-   * Request success status
-   */
-  status: boolean;
-
-  data?: Transfer;
+export interface TransferGetStatusByReferenceResponse extends AccountsAPI.BilaResponse {
+  data?: TransferGetStatusByReferenceResponse.Data;
 }
 
-export interface TransferInitiateMobileMoneyTransferResponse {
-  /**
-   * Response message
-   */
-  message: string;
+export namespace TransferGetStatusByReferenceResponse {
+  export interface Data {
+    /**
+     * Transfer ID
+     */
+    id: string;
 
-  /**
-   * Request success status
-   */
-  status: boolean;
+    /**
+     * Transfer amount
+     */
+    amount: number;
 
-  data?: Transfer;
+    /**
+     * Creation timestamp (from Payment)
+     */
+    createdAt: string;
+
+    /**
+     * Currency code
+     */
+    currency: string;
+
+    /**
+     * Recipient details
+     */
+    recipient: Data.Recipient;
+
+    /**
+     * Client reference
+     */
+    reference: string;
+
+    /**
+     * Transfer status
+     */
+    status: 'pending' | 'successful' | 'failed';
+
+    /**
+     * Transfer type
+     */
+    type: 'bank-account' | 'mobile-money';
+
+    /**
+     * Completion timestamp (from Payment.processedAt)
+     */
+    completedAt?: string;
+
+    /**
+     * Transfer narration
+     */
+    narration?: string;
+  }
+
+  export namespace Data {
+    /**
+     * Recipient details
+     */
+    export interface Recipient {
+      /**
+       * Account holder / recipient name
+       */
+      accountName: string;
+
+      /**
+       * Bank account number (bank-account only)
+       */
+      accountNumber?: string;
+
+      /**
+       * Bank name (bank-account only)
+       */
+      bankName?: string;
+
+      /**
+       * Mobile money operator (mobile-money only)
+       */
+      operator?: string;
+
+      /**
+       * Phone number (mobile-money only)
+       */
+      phone?: string;
+    }
+  }
 }
 
-export interface TransferListParams extends BilaPageParams {
+export interface TransferInitiateBankTransferResponse extends AccountsAPI.BilaResponse {
+  data?: TransferInitiateBankTransferResponse.Data;
+}
+
+export namespace TransferInitiateBankTransferResponse {
+  export interface Data {
+    /**
+     * Transfer ID
+     */
+    id: string;
+
+    /**
+     * Transfer amount
+     */
+    amount: number;
+
+    /**
+     * Creation timestamp (from Payment)
+     */
+    createdAt: string;
+
+    /**
+     * Currency code
+     */
+    currency: string;
+
+    /**
+     * Recipient details
+     */
+    recipient: Data.Recipient;
+
+    /**
+     * Client reference
+     */
+    reference: string;
+
+    /**
+     * Transfer status
+     */
+    status: 'pending' | 'successful' | 'failed';
+
+    /**
+     * Transfer type
+     */
+    type: 'bank-account' | 'mobile-money';
+
+    /**
+     * Completion timestamp (from Payment.processedAt)
+     */
+    completedAt?: string;
+
+    /**
+     * Transfer narration
+     */
+    narration?: string;
+  }
+
+  export namespace Data {
+    /**
+     * Recipient details
+     */
+    export interface Recipient {
+      /**
+       * Account holder / recipient name
+       */
+      accountName: string;
+
+      /**
+       * Bank account number (bank-account only)
+       */
+      accountNumber?: string;
+
+      /**
+       * Bank name (bank-account only)
+       */
+      bankName?: string;
+
+      /**
+       * Mobile money operator (mobile-money only)
+       */
+      operator?: string;
+
+      /**
+       * Phone number (mobile-money only)
+       */
+      phone?: string;
+    }
+  }
+}
+
+export interface TransferInitiateMobileMoneyTransferResponse extends AccountsAPI.BilaResponse {
+  data?: TransferInitiateMobileMoneyTransferResponse.Data;
+}
+
+export namespace TransferInitiateMobileMoneyTransferResponse {
+  export interface Data {
+    /**
+     * Transfer ID
+     */
+    id: string;
+
+    /**
+     * Transfer amount
+     */
+    amount: number;
+
+    /**
+     * Creation timestamp (from Payment)
+     */
+    createdAt: string;
+
+    /**
+     * Currency code
+     */
+    currency: string;
+
+    /**
+     * Recipient details
+     */
+    recipient: Data.Recipient;
+
+    /**
+     * Client reference
+     */
+    reference: string;
+
+    /**
+     * Transfer status
+     */
+    status: 'pending' | 'successful' | 'failed';
+
+    /**
+     * Transfer type
+     */
+    type: 'bank-account' | 'mobile-money';
+
+    /**
+     * Completion timestamp (from Payment.processedAt)
+     */
+    completedAt?: string;
+
+    /**
+     * Transfer narration
+     */
+    narration?: string;
+  }
+
+  export namespace Data {
+    /**
+     * Recipient details
+     */
+    export interface Recipient {
+      /**
+       * Account holder / recipient name
+       */
+      accountName: string;
+
+      /**
+       * Bank account number (bank-account only)
+       */
+      accountNumber?: string;
+
+      /**
+       * Bank name (bank-account only)
+       */
+      bankName?: string;
+
+      /**
+       * Mobile money operator (mobile-money only)
+       */
+      operator?: string;
+
+      /**
+       * Phone number (mobile-money only)
+       */
+      phone?: string;
+    }
+  }
+}
+
+export interface TransferListParams {
   /**
    * Filter by account ID
    */
@@ -272,6 +603,16 @@ export interface TransferListParams extends BilaPageParams {
    * Filter by end date (ISO 8601)
    */
   endDate?: string;
+
+  /**
+   * Page number (default: 1)
+   */
+  page?: number;
+
+  /**
+   * Items per page (default: 50)
+   */
+  perPage?: number;
 
   /**
    * Filter by start date (ISO 8601)
@@ -385,13 +726,11 @@ export interface TransferInitiateMobileMoneyTransferParams {
 
 export declare namespace Transfers {
   export {
-    type PaginatedTransfers as PaginatedTransfers,
-    type Transfer as Transfer,
     type TransferRetrieveResponse as TransferRetrieveResponse,
+    type TransferListResponse as TransferListResponse,
     type TransferGetStatusByReferenceResponse as TransferGetStatusByReferenceResponse,
     type TransferInitiateBankTransferResponse as TransferInitiateBankTransferResponse,
     type TransferInitiateMobileMoneyTransferResponse as TransferInitiateMobileMoneyTransferResponse,
-    type TransfersBilaPage as TransfersBilaPage,
     type TransferListParams as TransferListParams,
     type TransferInitiateBankTransferParams as TransferInitiateBankTransferParams,
     type TransferInitiateMobileMoneyTransferParams as TransferInitiateMobileMoneyTransferParams,
