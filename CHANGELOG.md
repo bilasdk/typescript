@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.2.0 (2026-06-02)
+
+Full Changelog: [v0.1.0...v0.2.0](https://github.com/bila-devdraft/sdk-typescript/compare/v0.1.0...v0.2.0)
+
+### Features
+
+* **api:** manual updates ([b40f712](https://github.com/bila-devdraft/sdk-typescript/commit/b40f712f717a313b1757ccfbaeea4ac0f8069a54))
+
+
+### Chores
+
+* update SDK settings ([ec313d7](https://github.com/bila-devdraft/sdk-typescript/commit/ec313d715a14686295f0965cb65f4c686c518ce3))
+
 ## 0.1.0 (2026-06-02)
 
 Full Changelog: [v0.0.1...v0.1.0](https://github.com/bila-devdraft/sdk-typescript/compare/v0.0.1...v0.1.0)
