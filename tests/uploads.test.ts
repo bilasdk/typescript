@@ -1,6 +1,6 @@
 import fs from 'fs';
-import type { ResponseLike } from '@bila/sdk/internal/to-file';
-import { toFile } from '@bila/sdk/core/uploads';
+import type { ResponseLike } from '@usebila/sdk/internal/to-file';
+import { toFile } from '@usebila/sdk/core/uploads';
 
 class MyClass {
   name: string = 'foo';
@@ -96,7 +96,7 @@ describe('missing File error message', () => {
   });
 
   test('is thrown', async () => {
-    const uploads = await import('@bila/sdk/core/uploads');
+    const uploads = await import('@usebila/sdk/core/uploads');
     await expect(
       uploads.toFile(mockResponse({ url: 'https://example.com/my/audio.mp3' })),
     ).rejects.toMatchInlineSnapshot(

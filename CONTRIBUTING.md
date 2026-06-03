@@ -55,12 +55,12 @@ $ cd typescript
 # With yarn
 $ yarn link
 $ cd ../my-package
-$ yarn link @bila/sdk
+$ yarn link @usebila/sdk
 
 # With pnpm
 $ pnpm link --global
 $ cd ../my-package
-$ pnpm link --global @bila/sdk
+$ pnpm link --global @usebila/sdk
 ```
 
 ## Running tests

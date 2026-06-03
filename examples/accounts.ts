@@ -5,7 +5,7 @@
  * list accounts, and check balances.
  */
 
-import Bila from '@bila/sdk';
+import Bila from '@usebila/sdk';
 
 const client = new Bila({
   apiKey: process.env['BILA_API_KEY'] ?? 'sk_test_your_api_key_here',

@@ -1,4 +1,4 @@
-import { createPathTagFunction, encodeURIPath } from '@bila/sdk/internal/utils/path';
+import { createPathTagFunction, encodeURIPath } from '@usebila/sdk/internal/utils/path';
 import { inspect } from 'node:util';
 import { runInNewContext } from 'node:vm';
 

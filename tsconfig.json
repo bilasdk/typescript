@@ -8,8 +8,8 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "paths": {
-      "@bila/sdk/*": ["./src/*"],
-      "@bila/sdk": ["./src/index.ts"]
+      "@usebila/sdk/*": ["./src/*"],
+      "@usebila/sdk": ["./src/index.ts"]
     },
     "noEmit": true,
 

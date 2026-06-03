@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIPromise } from '@bila/sdk/core/api-promise';
+import { APIPromise } from '@usebila/sdk/core/api-promise';
 
 import util from 'node:util';
-import Bila from '@bila/sdk';
-import { APIUserAbortError } from '@bila/sdk';
+import Bila from '@usebila/sdk';
+import { APIUserAbortError } from '@usebila/sdk';
 const defaultFetch = fetch;
 
 describe('instantiate client', () => {
