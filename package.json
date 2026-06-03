@@ -1,6 +1,6 @@
 {
   "name": "@usebila/sdk",
-  "version": "0.3.1",
+  "version": "1.0.0",
   "description": "The official TypeScript library for the Bila API",
   "author": "Bila <>",
   "types": "dist/index.d.ts",
