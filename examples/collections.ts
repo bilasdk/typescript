@@ -20,8 +20,7 @@ async function main() {
   /********************************************
    * Retrieve collection
    *********************************************/
-  const collection: Bila.CollectionRetrieveResponse =
-    await client.collections.retrieve(COLLECTION_ID);
+  const collection: Bila.CollectionRetrieveResponse = await client.collections.retrieve(COLLECTION_ID);
   console.log('retrieve:', collection);
 
   /********************************************

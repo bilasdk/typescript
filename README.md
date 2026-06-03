@@ -32,16 +32,16 @@ const accounts = await client.accounts.list();
 
 Runnable examples live in the [examples](./examples/) directory. Each file demonstrates a specific area of the API:
 
-| Example | Description |
-| --- | --- |
-| [accounts.ts](./examples/accounts.ts) | Retrieve accounts, list accounts, and check balances |
-| [banks.ts](./examples/banks.ts) | List supported banks and financial institutions |
-| [collections.ts](./examples/collections.ts) | Collect payments via mobile money |
-| [resolve.ts](./examples/resolve.ts) | Verify bank account and mobile money details |
-| [transactions.ts](./examples/transactions.ts) | Retrieve and list transaction history |
-| [transfer-recipients.ts](./examples/transfer-recipients.ts) | Manage payout recipients |
-| [transfers.ts](./examples/transfers.ts) | Send payouts via bank transfer and mobile money |
-| [webhooks.ts](./examples/webhooks.ts) | Configure webhooks and manage delivery history |
+| Example                                                     | Description                                          |
+| ----------------------------------------------------------- | ---------------------------------------------------- |
+| [accounts.ts](./examples/accounts.ts)                       | Retrieve accounts, list accounts, and check balances |
+| [banks.ts](./examples/banks.ts)                             | List supported banks and financial institutions      |
+| [collections.ts](./examples/collections.ts)                 | Collect payments via mobile money                    |
+| [resolve.ts](./examples/resolve.ts)                         | Verify bank account and mobile money details         |
+| [transactions.ts](./examples/transactions.ts)               | Retrieve and list transaction history                |
+| [transfer-recipients.ts](./examples/transfer-recipients.ts) | Manage payout recipients                             |
+| [transfers.ts](./examples/transfers.ts)                     | Send payouts via bank transfer and mobile money      |
+| [webhooks.ts](./examples/webhooks.ts)                       | Configure webhooks and manage delivery history       |
 
 To run an example from this repository:
 
@@ -79,10 +79,10 @@ const collections = await client.collections.list(params);
 
 Type names follow a simple pattern:
 
-| Kind | Pattern | Example |
-| --- | --- | --- |
-| Response | `{Resource}{Action}Response` | `Bila.TransferRetrieveResponse` |
-| Request params | `{Resource}{Action}Params` | `Bila.WebhookCreateParams` |
+| Kind           | Pattern                      | Example                         |
+| -------------- | ---------------------------- | ------------------------------- |
+| Response       | `{Resource}{Action}Response` | `Bila.TransferRetrieveResponse` |
+| Request params | `{Resource}{Action}Params`   | `Bila.WebhookCreateParams`      |
 
 Hover over any method or type in your editor to see field-level documentation. See [api.md](api.md) for the full list of types, or browse the [examples](./examples/) for real usage.
 
