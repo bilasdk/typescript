@@ -22,8 +22,7 @@ async function main() {
     country: 'zm',
   };
 
-  const bankAccount: Bila.ResolveBankAccountResponse =
-    await client.resolve.bankAccount(resolveBankParams);
+  const bankAccount: Bila.ResolveBankAccountResponse = await client.resolve.bankAccount(resolveBankParams);
   console.log('bankAccount:', bankAccount);
 
   /********************************************
@@ -35,8 +34,7 @@ async function main() {
     phone: '0977433571',
   };
 
-  const mobileMoney: Bila.ResolveMobileMoneyResponse =
-    await client.resolve.mobileMoney(resolveMobileParams);
+  const mobileMoney: Bila.ResolveMobileMoneyResponse = await client.resolve.mobileMoney(resolveMobileParams);
   console.log('mobileMoney:', mobileMoney);
 }
 

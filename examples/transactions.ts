@@ -19,8 +19,7 @@ async function main() {
   /********************************************
    * Retrieve transaction
    *********************************************/
-  const transaction: Bila.TransactionRetrieveResponse =
-    await client.transactions.retrieve(TRANSACTION_ID);
+  const transaction: Bila.TransactionRetrieveResponse = await client.transactions.retrieve(TRANSACTION_ID);
   console.log('retrieve:', transaction);
 
   /********************************************

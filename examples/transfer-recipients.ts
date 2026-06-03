@@ -31,8 +31,7 @@ async function main() {
     type: 'bank-account',
   };
 
-  const recipients: Bila.TransferRecipientListResponse =
-    await client.transferRecipients.list(listParams);
+  const recipients: Bila.TransferRecipientListResponse = await client.transferRecipients.list(listParams);
   console.log('list:', recipients);
 
   /********************************************
