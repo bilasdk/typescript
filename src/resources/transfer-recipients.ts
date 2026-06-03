@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../../core/resource';
+import { APIResource } from '../core/resource';
 import * as AccountsAPI from './accounts';
-import { APIPromise } from '../../../core/api-promise';
-import { RequestOptions } from '../../../internal/request-options';
-import { path } from '../../../internal/utils/path';
+import { APIPromise } from '../core/api-promise';
+import { RequestOptions } from '../internal/request-options';
+import { path } from '../internal/utils/path';
 
 /**
  * Transfer recipient management endpoints
@@ -16,7 +16,7 @@ export class TransferRecipients extends APIResource {
    * @example
    * ```ts
    * const transferRecipient =
-   *   await client.v1.bila.transferRecipients.retrieve(
+   *   await client.transferRecipients.retrieve(
    *     '68f11209-451f-4a15-bfcd-d916eb8b09f4',
    *   );
    * ```
@@ -31,7 +31,7 @@ export class TransferRecipients extends APIResource {
    * @example
    * ```ts
    * const transferRecipients =
-   *   await client.v1.bila.transferRecipients.list();
+   *   await client.transferRecipients.list();
    * ```
    */
   list(
@@ -47,9 +47,10 @@ export class TransferRecipients extends APIResource {
    * @example
    * ```ts
    * const response =
-   *   await client.v1.bila.transferRecipients.createBankAccount(
-   *     { accountNumber: '1234567890', bankId: 'bank-001' },
-   *   );
+   *   await client.transferRecipients.createBankAccount({
+   *     accountNumber: '1234567890',
+   *     bankId: 'bank-001',
+   *   });
    * ```
    */
   createBankAccount(
@@ -65,13 +66,11 @@ export class TransferRecipients extends APIResource {
    * @example
    * ```ts
    * const response =
-   *   await client.v1.bila.transferRecipients.createMobileMoney(
-   *     {
-   *       country: 'zm',
-   *       operator: 'airtel',
-   *       phone: '0977433571',
-   *     },
-   *   );
+   *   await client.transferRecipients.createMobileMoney({
+   *     country: 'zm',
+   *     operator: 'airtel',
+   *     phone: '0977433571',
+   *   });
    * ```
    */
   createMobileMoney(

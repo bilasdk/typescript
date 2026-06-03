@@ -10,7 +10,7 @@ const client = new Bila({
 describe('resource webhooks', () => {
   // Mock server tests are disabled
   test.skip('create: only required params', async () => {
-    const responsePromise = client.v1.bila.webhooks.create({
+    const responsePromise = client.webhooks.create({
       events: ['payment.completed', 'withdrawal.completed'],
       url: 'https://example.com/webhooks',
     });
@@ -25,7 +25,7 @@ describe('resource webhooks', () => {
 
   // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
-    const response = await client.v1.bila.webhooks.create({
+    const response = await client.webhooks.create({
       events: ['payment.completed', 'withdrawal.completed'],
       url: 'https://example.com/webhooks',
     });
@@ -33,7 +33,7 @@ describe('resource webhooks', () => {
 
   // Mock server tests are disabled
   test.skip('update', async () => {
-    const responsePromise = client.v1.bila.webhooks.update('68f11209-451f-4a15-bfcd-d916eb8b09f4', {});
+    const responsePromise = client.webhooks.update('68f11209-451f-4a15-bfcd-d916eb8b09f4', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -45,7 +45,7 @@ describe('resource webhooks', () => {
 
   // Mock server tests are disabled
   test.skip('list', async () => {
-    const responsePromise = client.v1.bila.webhooks.list();
+    const responsePromise = client.webhooks.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -57,7 +57,7 @@ describe('resource webhooks', () => {
 
   // Mock server tests are disabled
   test.skip('deactivate', async () => {
-    const responsePromise = client.v1.bila.webhooks.deactivate('68f11209-451f-4a15-bfcd-d916eb8b09f4');
+    const responsePromise = client.webhooks.deactivate('68f11209-451f-4a15-bfcd-d916eb8b09f4');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -69,7 +69,7 @@ describe('resource webhooks', () => {
 
   // Mock server tests are disabled
   test.skip('getDeliveries', async () => {
-    const responsePromise = client.v1.bila.webhooks.getDeliveries('68f11209-451f-4a15-bfcd-d916eb8b09f4');
+    const responsePromise = client.webhooks.getDeliveries('68f11209-451f-4a15-bfcd-d916eb8b09f4');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -83,7 +83,7 @@ describe('resource webhooks', () => {
   test.skip('getDeliveries: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.v1.bila.webhooks.getDeliveries(
+      client.webhooks.getDeliveries(
         '68f11209-451f-4a15-bfcd-d916eb8b09f4',
         {
           endDate: '2026-04-30T23:59:59.999Z',
@@ -100,7 +100,7 @@ describe('resource webhooks', () => {
 
   // Mock server tests are disabled
   test.skip('listEvents', async () => {
-    const responsePromise = client.v1.bila.webhooks.listEvents();
+    const responsePromise = client.webhooks.listEvents();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -112,7 +112,7 @@ describe('resource webhooks', () => {
 
   // Mock server tests are disabled
   test.skip('rotateSecret', async () => {
-    const responsePromise = client.v1.bila.webhooks.rotateSecret('68f11209-451f-4a15-bfcd-d916eb8b09f4');
+    const responsePromise = client.webhooks.rotateSecret('68f11209-451f-4a15-bfcd-d916eb8b09f4');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;

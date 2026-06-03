@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../../core/resource';
+import { APIResource } from '../core/resource';
 import * as AccountsAPI from './accounts';
-import { APIPromise } from '../../../core/api-promise';
-import { RequestOptions } from '../../../internal/request-options';
-import { path } from '../../../internal/utils/path';
+import { APIPromise } from '../core/api-promise';
+import { RequestOptions } from '../internal/request-options';
+import { path } from '../internal/utils/path';
 
 /**
  * Payout/transfer operation endpoints
@@ -15,7 +15,7 @@ export class Transfers extends APIResource {
    *
    * @example
    * ```ts
-   * const transfer = await client.v1.bila.transfers.retrieve(
+   * const transfer = await client.transfers.retrieve(
    *   '68f11209-451f-4a15-bfcd-d916eb8b09f4',
    * );
    * ```
@@ -29,7 +29,7 @@ export class Transfers extends APIResource {
    *
    * @example
    * ```ts
-   * const transfers = await client.v1.bila.transfers.list();
+   * const transfers = await client.transfers.list();
    * ```
    */
   list(
@@ -45,7 +45,7 @@ export class Transfers extends APIResource {
    * @example
    * ```ts
    * const response =
-   *   await client.v1.bila.transfers.getStatusByReference(
+   *   await client.transfers.getStatusByReference(
    *     'transfer-001',
    *   );
    * ```
@@ -64,7 +64,7 @@ export class Transfers extends APIResource {
    * @example
    * ```ts
    * const response =
-   *   await client.v1.bila.transfers.initiateBankTransfer({
+   *   await client.transfers.initiateBankTransfer({
    *     accountId: '68f11209-451f-4a15-bfcd-d916eb8b09f4',
    *     amount: 1000,
    *     reference: 'transfer-001',
@@ -85,15 +85,13 @@ export class Transfers extends APIResource {
    * @example
    * ```ts
    * const response =
-   *   await client.v1.bila.transfers.initiateMobileMoneyTransfer(
-   *     {
-   *       amount: 250,
-   *       country: 'zm',
-   *       operator: 'airtel',
-   *       phone: '0977433571',
-   *       reference: 'mobile-transfer-001',
-   *     },
-   *   );
+   *   await client.transfers.initiateMobileMoneyTransfer({
+   *     amount: 250,
+   *     country: 'zm',
+   *     operator: 'airtel',
+   *     phone: '0977433571',
+   *     reference: 'mobile-transfer-001',
+   *   });
    * ```
    */
   initiateMobileMoneyTransfer(

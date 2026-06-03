@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../../core/resource';
+import { APIResource } from '../core/resource';
 import * as AccountsAPI from './accounts';
-import { APIPromise } from '../../../core/api-promise';
-import { RequestOptions } from '../../../internal/request-options';
-import { path } from '../../../internal/utils/path';
+import { APIPromise } from '../core/api-promise';
+import { RequestOptions } from '../internal/request-options';
+import { path } from '../internal/utils/path';
 
 /**
  * Payment collection operation endpoints
@@ -15,10 +15,9 @@ export class Collections extends APIResource {
    *
    * @example
    * ```ts
-   * const collection =
-   *   await client.v1.bila.collections.retrieve(
-   *     '68f11209-451f-4a15-bfcd-d916eb8b09f4',
-   *   );
+   * const collection = await client.collections.retrieve(
+   *   '68f11209-451f-4a15-bfcd-d916eb8b09f4',
+   * );
    * ```
    */
   retrieve(id: string, options?: RequestOptions): APIPromise<CollectionRetrieveResponse> {
@@ -30,7 +29,7 @@ export class Collections extends APIResource {
    *
    * @example
    * ```ts
-   * const collections = await client.v1.bila.collections.list();
+   * const collections = await client.collections.list();
    * ```
    */
   list(
@@ -46,7 +45,7 @@ export class Collections extends APIResource {
    * @example
    * ```ts
    * const response =
-   *   await client.v1.bila.collections.getStatusByReference(
+   *   await client.collections.getStatusByReference(
    *     'collection-001',
    *   );
    * ```
@@ -65,16 +64,14 @@ export class Collections extends APIResource {
    * @example
    * ```ts
    * const response =
-   *   await client.v1.bila.collections.initiateMobileMoneyCollection(
-   *     {
-   *       amount: 100.5,
-   *       country: 'zm',
-   *       operator: 'airtel',
-   *       phone: '0977433571',
-   *       reference: 'collection-001',
-   *       walletId: '68f11209-451f-4a15-bfcd-d916eb8b09f4',
-   *     },
-   *   );
+   *   await client.collections.initiateMobileMoneyCollection({
+   *     amount: 100.5,
+   *     country: 'zm',
+   *     operator: 'airtel',
+   *     phone: '0977433571',
+   *     reference: 'collection-001',
+   *     walletId: '68f11209-451f-4a15-bfcd-d916eb8b09f4',
+   *   });
    * ```
    */
   initiateMobileMoneyCollection(
