@@ -1,4 +1,4 @@
-# Accounts
+# [Accounts](./src/resources/accounts.ts)
 
 Types:
 
@@ -13,7 +13,7 @@ Methods:
 - <code title="get /api/v1/bila/accounts">client.accounts.<a href="./src/resources/accounts.ts">list</a>({ ...params }) -> AccountListResponse</code>
 - <code title="get /api/v1/bila/accounts/{id}/balance">client.accounts.<a href="./src/resources/accounts.ts">getBalance</a>(id) -> AccountGetBalanceResponse</code>
 
-# TransferRecipients
+# [TransferRecipients](./src/resources/transfer-recipients.ts)
 
 Types:
 
@@ -29,7 +29,7 @@ Methods:
 - <code title="post /api/v1/bila/transfer-recipients/bank-account">client.transferRecipients.<a href="./src/resources/transfer-recipients.ts">createBankAccount</a>({ ...params }) -> TransferRecipientCreateBankAccountResponse</code>
 - <code title="post /api/v1/bila/transfer-recipients/mobile-money">client.transferRecipients.<a href="./src/resources/transfer-recipients.ts">createMobileMoney</a>({ ...params }) -> TransferRecipientCreateMobileMoneyResponse</code>
 
-# Transfers
+# [Transfers](./src/resources/transfers.ts)
 
 Types:
 
@@ -47,7 +47,7 @@ Methods:
 - <code title="post /api/v1/bila/transfers/bank-account">client.transfers.<a href="./src/resources/transfers.ts">initiateBankTransfer</a>({ ...params }) -> TransferInitiateBankTransferResponse</code>
 - <code title="post /api/v1/bila/transfers/mobile-money">client.transfers.<a href="./src/resources/transfers.ts">initiateMobileMoneyTransfer</a>({ ...params }) -> TransferInitiateMobileMoneyTransferResponse</code>
 
-# Collections
+# [Collections](./src/resources/collections.ts)
 
 Types:
 
@@ -63,7 +63,7 @@ Methods:
 - <code title="get /api/v1/bila/collections/status/{reference}">client.collections.<a href="./src/resources/collections.ts">getStatusByReference</a>(reference) -> CollectionGetStatusByReferenceResponse</code>
 - <code title="post /api/v1/bila/collections/mobile-money">client.collections.<a href="./src/resources/collections.ts">initiateMobileMoneyCollection</a>({ ...params }) -> CollectionInitiateMobileMoneyCollectionResponse</code>
 
-# Transactions
+# [Transactions](./src/resources/transactions.ts)
 
 Types:
 
@@ -75,7 +75,7 @@ Methods:
 - <code title="get /api/v1/bila/transactions/{id}">client.transactions.<a href="./src/resources/transactions.ts">retrieve</a>(id) -> TransactionRetrieveResponse</code>
 - <code title="get /api/v1/bila/transactions">client.transactions.<a href="./src/resources/transactions.ts">list</a>({ ...params }) -> TransactionListResponse</code>
 
-# Webhooks
+# [Webhooks](./src/resources/webhooks.ts)
 
 Types:
 
@@ -96,7 +96,7 @@ Methods:
 - <code title="get /api/v1/bila/webhooks/events">client.webhooks.<a href="./src/resources/webhooks.ts">listEvents</a>() -> WebhookListEventsResponse</code>
 - <code title="post /api/v1/bila/webhooks/{id}/rotate-secret">client.webhooks.<a href="./src/resources/webhooks.ts">rotateSecret</a>(id) -> WebhookRotateSecretResponse</code>
 
-# Banks
+# [Banks](./src/resources/banks.ts)
 
 Types:
 
@@ -106,7 +106,7 @@ Methods:
 
 - <code title="get /api/v1/bila/banks">client.banks.<a href="./src/resources/banks.ts">list</a>({ ...params }) -> BankListResponse</code>
 
-# Resolve
+# [Resolve](./src/resources/resolve.ts)
 
 Types:
 
