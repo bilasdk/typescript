@@ -17,7 +17,70 @@ import * as Errors from './core/error';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import { APIPromise } from './core/api-promise';
-import { V1 } from './resources/v1/v1';
+import {
+  AccountGetBalanceResponse,
+  AccountListParams,
+  AccountListResponse,
+  AccountRetrieveResponse,
+  Accounts,
+  BilaResponse,
+} from './resources/accounts';
+import { BankListParams, BankListResponse, Banks } from './resources/banks';
+import {
+  CollectionGetStatusByReferenceResponse,
+  CollectionInitiateMobileMoneyCollectionParams,
+  CollectionInitiateMobileMoneyCollectionResponse,
+  CollectionListParams,
+  CollectionListResponse,
+  CollectionRetrieveResponse,
+  Collections,
+} from './resources/collections';
+import {
+  Resolve,
+  ResolveBankAccountParams,
+  ResolveBankAccountResponse,
+  ResolveMobileMoneyParams,
+  ResolveMobileMoneyResponse,
+} from './resources/resolve';
+import {
+  TransactionListParams,
+  TransactionListResponse,
+  TransactionRetrieveResponse,
+  Transactions,
+} from './resources/transactions';
+import {
+  TransferRecipientCreateBankAccountParams,
+  TransferRecipientCreateBankAccountResponse,
+  TransferRecipientCreateMobileMoneyParams,
+  TransferRecipientCreateMobileMoneyResponse,
+  TransferRecipientListParams,
+  TransferRecipientListResponse,
+  TransferRecipientRetrieveResponse,
+  TransferRecipients,
+} from './resources/transfer-recipients';
+import {
+  TransferGetStatusByReferenceResponse,
+  TransferInitiateBankTransferParams,
+  TransferInitiateBankTransferResponse,
+  TransferInitiateMobileMoneyTransferParams,
+  TransferInitiateMobileMoneyTransferResponse,
+  TransferListParams,
+  TransferListResponse,
+  TransferRetrieveResponse,
+  Transfers,
+} from './resources/transfers';
+import {
+  WebhookCreateParams,
+  WebhookCreateResponse,
+  WebhookGetDeliveriesParams,
+  WebhookGetDeliveriesResponse,
+  WebhookListEventsResponse,
+  WebhookListResponse,
+  WebhookRotateSecretResponse,
+  WebhookUpdateParams,
+  WebhookUpdateResponse,
+  Webhooks,
+} from './resources/webhooks';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -754,13 +817,121 @@ export class Bila {
 
   static toFile = Uploads.toFile;
 
-  v1: API.V1 = new API.V1(this);
+  /**
+   * Account/wallet management endpoints
+   */
+  accounts: API.Accounts = new API.Accounts(this);
+  /**
+   * Transfer recipient management endpoints
+   */
+  transferRecipients: API.TransferRecipients = new API.TransferRecipients(this);
+  /**
+   * Payout/transfer operation endpoints
+   */
+  transfers: API.Transfers = new API.Transfers(this);
+  /**
+   * Payment collection operation endpoints
+   */
+  collections: API.Collections = new API.Collections(this);
+  /**
+   * Transaction history endpoints
+   */
+  transactions: API.Transactions = new API.Transactions(this);
+  /**
+   * Webhook configuration and delivery history
+   */
+  webhooks: API.Webhooks = new API.Webhooks(this);
+  /**
+   * Bank reference data endpoints
+   */
+  banks: API.Banks = new API.Banks(this);
+  /**
+   * Account resolution/verification endpoints
+   */
+  resolve: API.Resolve = new API.Resolve(this);
 }
 
-Bila.V1 = V1;
+Bila.Accounts = Accounts;
+Bila.TransferRecipients = TransferRecipients;
+Bila.Transfers = Transfers;
+Bila.Collections = Collections;
+Bila.Transactions = Transactions;
+Bila.Webhooks = Webhooks;
+Bila.Banks = Banks;
+Bila.Resolve = Resolve;
 
 export declare namespace Bila {
   export type RequestOptions = Opts.RequestOptions;
 
-  export { V1 as V1 };
+  export {
+    Accounts as Accounts,
+    type BilaResponse as BilaResponse,
+    type AccountRetrieveResponse as AccountRetrieveResponse,
+    type AccountListResponse as AccountListResponse,
+    type AccountGetBalanceResponse as AccountGetBalanceResponse,
+    type AccountListParams as AccountListParams,
+  };
+
+  export {
+    TransferRecipients as TransferRecipients,
+    type TransferRecipientRetrieveResponse as TransferRecipientRetrieveResponse,
+    type TransferRecipientListResponse as TransferRecipientListResponse,
+    type TransferRecipientCreateBankAccountResponse as TransferRecipientCreateBankAccountResponse,
+    type TransferRecipientCreateMobileMoneyResponse as TransferRecipientCreateMobileMoneyResponse,
+    type TransferRecipientListParams as TransferRecipientListParams,
+    type TransferRecipientCreateBankAccountParams as TransferRecipientCreateBankAccountParams,
+    type TransferRecipientCreateMobileMoneyParams as TransferRecipientCreateMobileMoneyParams,
+  };
+
+  export {
+    Transfers as Transfers,
+    type TransferRetrieveResponse as TransferRetrieveResponse,
+    type TransferListResponse as TransferListResponse,
+    type TransferGetStatusByReferenceResponse as TransferGetStatusByReferenceResponse,
+    type TransferInitiateBankTransferResponse as TransferInitiateBankTransferResponse,
+    type TransferInitiateMobileMoneyTransferResponse as TransferInitiateMobileMoneyTransferResponse,
+    type TransferListParams as TransferListParams,
+    type TransferInitiateBankTransferParams as TransferInitiateBankTransferParams,
+    type TransferInitiateMobileMoneyTransferParams as TransferInitiateMobileMoneyTransferParams,
+  };
+
+  export {
+    Collections as Collections,
+    type CollectionRetrieveResponse as CollectionRetrieveResponse,
+    type CollectionListResponse as CollectionListResponse,
+    type CollectionGetStatusByReferenceResponse as CollectionGetStatusByReferenceResponse,
+    type CollectionInitiateMobileMoneyCollectionResponse as CollectionInitiateMobileMoneyCollectionResponse,
+    type CollectionListParams as CollectionListParams,
+    type CollectionInitiateMobileMoneyCollectionParams as CollectionInitiateMobileMoneyCollectionParams,
+  };
+
+  export {
+    Transactions as Transactions,
+    type TransactionRetrieveResponse as TransactionRetrieveResponse,
+    type TransactionListResponse as TransactionListResponse,
+    type TransactionListParams as TransactionListParams,
+  };
+
+  export {
+    Webhooks as Webhooks,
+    type WebhookCreateResponse as WebhookCreateResponse,
+    type WebhookUpdateResponse as WebhookUpdateResponse,
+    type WebhookListResponse as WebhookListResponse,
+    type WebhookGetDeliveriesResponse as WebhookGetDeliveriesResponse,
+    type WebhookListEventsResponse as WebhookListEventsResponse,
+    type WebhookRotateSecretResponse as WebhookRotateSecretResponse,
+    type WebhookCreateParams as WebhookCreateParams,
+    type WebhookUpdateParams as WebhookUpdateParams,
+    type WebhookGetDeliveriesParams as WebhookGetDeliveriesParams,
+  };
+
+  export { Banks as Banks, type BankListResponse as BankListResponse, type BankListParams as BankListParams };
+
+  export {
+    Resolve as Resolve,
+    type ResolveBankAccountResponse as ResolveBankAccountResponse,
+    type ResolveMobileMoneyResponse as ResolveMobileMoneyResponse,
+    type ResolveBankAccountParams as ResolveBankAccountParams,
+    type ResolveMobileMoneyParams as ResolveMobileMoneyParams,
+  };
 }

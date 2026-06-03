@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../../core/resource';
+import { APIResource } from '../core/resource';
 import * as AccountsAPI from './accounts';
-import { APIPromise } from '../../../core/api-promise';
-import { RequestOptions } from '../../../internal/request-options';
-import { path } from '../../../internal/utils/path';
+import { APIPromise } from '../core/api-promise';
+import { RequestOptions } from '../internal/request-options';
+import { path } from '../internal/utils/path';
 
 /**
  * Webhook configuration and delivery history
@@ -15,7 +15,7 @@ export class Webhooks extends APIResource {
    *
    * @example
    * ```ts
-   * const webhook = await client.v1.bila.webhooks.create({
+   * const webhook = await client.webhooks.create({
    *   events: ['payment.completed', 'withdrawal.completed'],
    *   url: 'https://example.com/webhooks',
    * });
@@ -30,7 +30,7 @@ export class Webhooks extends APIResource {
    *
    * @example
    * ```ts
-   * const webhook = await client.v1.bila.webhooks.update(
+   * const webhook = await client.webhooks.update(
    *   '68f11209-451f-4a15-bfcd-d916eb8b09f4',
    * );
    * ```
@@ -44,7 +44,7 @@ export class Webhooks extends APIResource {
    *
    * @example
    * ```ts
-   * const webhooks = await client.v1.bila.webhooks.list();
+   * const webhooks = await client.webhooks.list();
    * ```
    */
   list(options?: RequestOptions): APIPromise<WebhookListResponse> {
@@ -56,10 +56,9 @@ export class Webhooks extends APIResource {
    *
    * @example
    * ```ts
-   * const bilaResponse =
-   *   await client.v1.bila.webhooks.deactivate(
-   *     '68f11209-451f-4a15-bfcd-d916eb8b09f4',
-   *   );
+   * const bilaResponse = await client.webhooks.deactivate(
+   *   '68f11209-451f-4a15-bfcd-d916eb8b09f4',
+   * );
    * ```
    */
   deactivate(id: string, options?: RequestOptions): APIPromise<AccountsAPI.BilaResponse> {
@@ -71,10 +70,9 @@ export class Webhooks extends APIResource {
    *
    * @example
    * ```ts
-   * const response =
-   *   await client.v1.bila.webhooks.getDeliveries(
-   *     '68f11209-451f-4a15-bfcd-d916eb8b09f4',
-   *   );
+   * const response = await client.webhooks.getDeliveries(
+   *   '68f11209-451f-4a15-bfcd-d916eb8b09f4',
+   * );
    * ```
    */
   getDeliveries(
@@ -90,7 +88,7 @@ export class Webhooks extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.v1.bila.webhooks.listEvents();
+   * const response = await client.webhooks.listEvents();
    * ```
    */
   listEvents(options?: RequestOptions): APIPromise<WebhookListEventsResponse> {
@@ -102,7 +100,7 @@ export class Webhooks extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.v1.bila.webhooks.rotateSecret(
+   * const response = await client.webhooks.rotateSecret(
    *   '68f11209-451f-4a15-bfcd-d916eb8b09f4',
    * );
    * ```

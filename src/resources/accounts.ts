@@ -1,9 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../../core/resource';
-import { APIPromise } from '../../../core/api-promise';
-import { RequestOptions } from '../../../internal/request-options';
-import { path } from '../../../internal/utils/path';
+import { APIResource } from '../core/resource';
+import { APIPromise } from '../core/api-promise';
+import { RequestOptions } from '../internal/request-options';
+import { path } from '../internal/utils/path';
 
 /**
  * Account/wallet management endpoints
@@ -11,13 +11,6 @@ import { path } from '../../../internal/utils/path';
 export class Accounts extends APIResource {
   /**
    * Retrieve a single account by its UUID
-   *
-   * @example
-   * ```ts
-   * const account = await client.v1.bila.accounts.retrieve(
-   *   '68f11209-451f-4a15-bfcd-d916eb8b09f4',
-   * );
-   * ```
    */
   retrieve(id: string, options?: RequestOptions): APIPromise<AccountRetrieveResponse> {
     return this._client.get(path`/api/v1/bila/accounts/${id}`, options);
@@ -25,11 +18,6 @@ export class Accounts extends APIResource {
 
   /**
    * Retrieve a paginated list of accounts/wallets for the authenticated merchant
-   *
-   * @example
-   * ```ts
-   * const accounts = await client.v1.bila.accounts.list();
-   * ```
    */
   list(
     query: AccountListParams | null | undefined = {},
@@ -40,13 +28,6 @@ export class Accounts extends APIResource {
 
   /**
    * Retrieve the balance of a specific account
-   *
-   * @example
-   * ```ts
-   * const response = await client.v1.bila.accounts.getBalance(
-   *   '68f11209-451f-4a15-bfcd-d916eb8b09f4',
-   * );
-   * ```
    */
   getBalance(id: string, options?: RequestOptions): APIPromise<AccountGetBalanceResponse> {
     return this._client.get(path`/api/v1/bila/accounts/${id}/balance`, options);
