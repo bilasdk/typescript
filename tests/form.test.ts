@@ -1,5 +1,5 @@
-import { multipartFormRequestOptions, createForm } from 'bila/internal/uploads';
-import { toFile } from 'bila/core/uploads';
+import { multipartFormRequestOptions, createForm } from '@bila/sdk/internal/uploads';
+import { toFile } from '@bila/sdk/core/uploads';
 
 describe('form data validation', () => {
   test('valid values do not error', async () => {

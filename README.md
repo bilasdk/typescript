@@ -1,6 +1,6 @@
 # Bila TypeScript API Library
 
-[![NPM version](<https://img.shields.io/npm/v/bila.svg?label=npm%20(stable)>)](https://npmjs.org/package/bila) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/bila)
+[![NPM version](<https://img.shields.io/npm/v/@bila%2Fsdk.svg?label=npm%20(stable)>)](https://npmjs.org/package/@bila/sdk) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/@bila%2Fsdk)
 
 This library provides convenient access to the Bila REST API from server-side TypeScript or JavaScript.
 
@@ -11,14 +11,14 @@ It is generated with [Stainless](https://www.stainless.com/).
 ## Installation
 
 ```sh
-npm install bila
+npm install @bila/sdk
 ```
 
 ## Usage
 
 <!-- prettier-ignore -->
 ```js
-import Bila from 'bila';
+import Bila from '@bila/sdk';
 
 const client = new Bila({
   apiKey: 'Your API key',
@@ -58,7 +58,7 @@ Every API method has typed request params and responses. You only need one impor
 
 <!-- prettier-ignore -->
 ```ts
-import Bila from 'bila';
+import Bila from '@bila/sdk';
 
 const client = new Bila({
   apiKey: 'Your API key',
@@ -94,7 +94,7 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-import Bila from 'bila';
+import Bila from '@bila/sdk';
 
 const client = new Bila({
   apiKey: 'Your API key',

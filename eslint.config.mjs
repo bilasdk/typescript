@@ -24,7 +24,7 @@ export default tseslint.config(
         {
           patterns: [
             {
-              regex: '^bila(/.*)?',
+              regex: '^@bila/sdk(/.*)?',
               message: 'Use a relative import, not a package import.',
             },
           ],

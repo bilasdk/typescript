@@ -5,8 +5,8 @@
   "compilerOptions": {
     "rootDir": "./dist/src",
     "paths": {
-      "bila/*": ["./dist/src/*"],
-      "bila": ["./dist/src/index.ts"]
+      "@bila/sdk/*": ["./dist/src/*"],
+      "@bila/sdk": ["./dist/src/index.ts"]
     },
     "noEmit": false,
     "declaration": true,

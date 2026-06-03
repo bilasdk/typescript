@@ -1,5 +1,5 @@
 {
-  "name": "bila",
+  "name": "@bila/sdk",
   "version": "0.3.1",
   "description": "The official TypeScript library for the Bila API",
   "author": "Bila <>",

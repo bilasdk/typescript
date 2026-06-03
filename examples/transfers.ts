@@ -5,7 +5,7 @@
  * bank transfer and mobile money.
  */
 
-import Bila from 'bila';
+import Bila from '@bila/sdk';
 
 const client = new Bila({
   apiKey: process.env['BILA_API_KEY'] ?? 'sk_test_your_api_key_here',

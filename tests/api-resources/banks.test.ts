@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Bila from 'bila';
+import Bila from '@bila/sdk';
 
 const client = new Bila({
   apiKey: 'My API Key',
