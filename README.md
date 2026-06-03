@@ -27,7 +27,7 @@ const client = new Bila({
   environment: 'sandbox', // defaults to 'production'
 });
 
-const accounts = await client.v1.bila.accounts.list();
+const accounts = await client.accounts.list();
 ```
 
 ### Request & Response types
@@ -43,7 +43,7 @@ const client = new Bila({
   environment: 'sandbox', // defaults to 'production'
 });
 
-const accounts: Bila.V1.Bila.AccountListResponse = await client.v1.bila.accounts.list();
+const accounts: Bila.AccountListResponse = await client.accounts.list();
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -56,7 +56,7 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-const accounts = await client.v1.bila.accounts.list().catch(async (err) => {
+const accounts = await client.accounts.list().catch(async (err) => {
   if (err instanceof Bila.APIError) {
     console.log(err.status); // 400
     console.log(err.name); // BadRequestError
@@ -96,7 +96,7 @@ const client = new Bila({
 });
 
 // Or, configure per-request:
-await client.v1.bila.accounts.list({
+await client.accounts.list({
   maxRetries: 5,
 });
 ```
@@ -113,7 +113,7 @@ const client = new Bila({
 });
 
 // Override per-request:
-await client.v1.bila.accounts.list({
+await client.accounts.list({
   timeout: 5 * 1000,
 });
 ```
@@ -136,11 +136,11 @@ Unlike `.asResponse()` this method consumes the body, returning once it is parse
 ```ts
 const client = new Bila();
 
-const response = await client.v1.bila.accounts.list().asResponse();
+const response = await client.accounts.list().asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: accounts, response: raw } = await client.v1.bila.accounts.list().withResponse();
+const { data: accounts, response: raw } = await client.accounts.list().withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(accounts);
 ```
@@ -222,7 +222,7 @@ parameter. This library doesn't validate at runtime that the request matches the
 send will be sent as-is.
 
 ```ts
-client.v1.bila.accounts.list({
+client.accounts.list({
   // ...
   // @ts-expect-error baz is not yet public
   baz: 'undocumented option',

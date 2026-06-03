@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../../core/resource';
+import { APIResource } from '../core/resource';
 import * as AccountsAPI from './accounts';
-import { APIPromise } from '../../../core/api-promise';
-import { RequestOptions } from '../../../internal/request-options';
-import { path } from '../../../internal/utils/path';
+import { APIPromise } from '../core/api-promise';
+import { RequestOptions } from '../internal/request-options';
+import { path } from '../internal/utils/path';
 
 /**
  * Transaction history endpoints
@@ -12,14 +12,6 @@ import { path } from '../../../internal/utils/path';
 export class Transactions extends APIResource {
   /**
    * Retrieve a single transaction by its UUID
-   *
-   * @example
-   * ```ts
-   * const transaction =
-   *   await client.v1.bila.transactions.retrieve(
-   *     '68f11209-451f-4a15-bfcd-d916eb8b09f4',
-   *   );
-   * ```
    */
   retrieve(id: string, options?: RequestOptions): APIPromise<TransactionRetrieveResponse> {
     return this._client.get(path`/api/v1/bila/transactions/${id}`, options);
@@ -27,12 +19,6 @@ export class Transactions extends APIResource {
 
   /**
    * Retrieve a paginated list of transactions
-   *
-   * @example
-   * ```ts
-   * const transactions =
-   *   await client.v1.bila.transactions.list();
-   * ```
    */
   list(
     query: TransactionListParams | null | undefined = {},

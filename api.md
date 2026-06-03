@@ -1,113 +1,119 @@
-# V1
-
-## Bila
+# Accounts
 
 Types:
 
-- <code><a href="./src/resources/v1/bila/bila.ts">BilaListBanksResponse</a></code>
-- <code><a href="./src/resources/v1/bila/bila.ts">BilaResolveBankAccountResponse</a></code>
-- <code><a href="./src/resources/v1/bila/bila.ts">BilaResolveMobileMoneyResponse</a></code>
+- <code><a href="./src/resources/accounts.ts">BilaResponse</a></code>
+- <code><a href="./src/resources/accounts.ts">AccountRetrieveResponse</a></code>
+- <code><a href="./src/resources/accounts.ts">AccountListResponse</a></code>
+- <code><a href="./src/resources/accounts.ts">AccountGetBalanceResponse</a></code>
 
 Methods:
 
-- <code title="get /api/v1/bila/banks">client.v1.bila.<a href="./src/resources/v1/bila/bila.ts">listBanks</a>({ ...params }) -> BilaListBanksResponse</code>
-- <code title="post /api/v1/bila/resolve/bank-account">client.v1.bila.<a href="./src/resources/v1/bila/bila.ts">resolveBankAccount</a>({ ...params }) -> BilaResolveBankAccountResponse</code>
-- <code title="post /api/v1/bila/resolve/mobile-money">client.v1.bila.<a href="./src/resources/v1/bila/bila.ts">resolveMobileMoney</a>({ ...params }) -> BilaResolveMobileMoneyResponse</code>
+- <code title="get /api/v1/bila/accounts/{id}">client.accounts.<a href="./src/resources/accounts.ts">retrieve</a>(id) -> AccountRetrieveResponse</code>
+- <code title="get /api/v1/bila/accounts">client.accounts.<a href="./src/resources/accounts.ts">list</a>({ ...params }) -> AccountListResponse</code>
+- <code title="get /api/v1/bila/accounts/{id}/balance">client.accounts.<a href="./src/resources/accounts.ts">getBalance</a>(id) -> AccountGetBalanceResponse</code>
 
-### Accounts
+# TransferRecipients
 
 Types:
 
-- <code><a href="./src/resources/v1/bila/accounts.ts">BilaResponse</a></code>
-- <code><a href="./src/resources/v1/bila/accounts.ts">AccountRetrieveResponse</a></code>
-- <code><a href="./src/resources/v1/bila/accounts.ts">AccountListResponse</a></code>
-- <code><a href="./src/resources/v1/bila/accounts.ts">AccountGetBalanceResponse</a></code>
+- <code><a href="./src/resources/transfer-recipients.ts">TransferRecipientRetrieveResponse</a></code>
+- <code><a href="./src/resources/transfer-recipients.ts">TransferRecipientListResponse</a></code>
+- <code><a href="./src/resources/transfer-recipients.ts">TransferRecipientCreateBankAccountResponse</a></code>
+- <code><a href="./src/resources/transfer-recipients.ts">TransferRecipientCreateMobileMoneyResponse</a></code>
 
 Methods:
 
-- <code title="get /api/v1/bila/accounts/{id}">client.v1.bila.accounts.<a href="./src/resources/v1/bila/accounts.ts">retrieve</a>(id) -> AccountRetrieveResponse</code>
-- <code title="get /api/v1/bila/accounts">client.v1.bila.accounts.<a href="./src/resources/v1/bila/accounts.ts">list</a>({ ...params }) -> AccountListResponse</code>
-- <code title="get /api/v1/bila/accounts/{id}/balance">client.v1.bila.accounts.<a href="./src/resources/v1/bila/accounts.ts">getBalance</a>(id) -> AccountGetBalanceResponse</code>
+- <code title="get /api/v1/bila/transfer-recipients/{id}">client.transferRecipients.<a href="./src/resources/transfer-recipients.ts">retrieve</a>(id) -> TransferRecipientRetrieveResponse</code>
+- <code title="get /api/v1/bila/transfer-recipients">client.transferRecipients.<a href="./src/resources/transfer-recipients.ts">list</a>({ ...params }) -> TransferRecipientListResponse</code>
+- <code title="post /api/v1/bila/transfer-recipients/bank-account">client.transferRecipients.<a href="./src/resources/transfer-recipients.ts">createBankAccount</a>({ ...params }) -> TransferRecipientCreateBankAccountResponse</code>
+- <code title="post /api/v1/bila/transfer-recipients/mobile-money">client.transferRecipients.<a href="./src/resources/transfer-recipients.ts">createMobileMoney</a>({ ...params }) -> TransferRecipientCreateMobileMoneyResponse</code>
 
-### TransferRecipients
+# Transfers
 
 Types:
 
-- <code><a href="./src/resources/v1/bila/transfer-recipients.ts">TransferRecipientRetrieveResponse</a></code>
-- <code><a href="./src/resources/v1/bila/transfer-recipients.ts">TransferRecipientListResponse</a></code>
-- <code><a href="./src/resources/v1/bila/transfer-recipients.ts">TransferRecipientCreateBankAccountResponse</a></code>
-- <code><a href="./src/resources/v1/bila/transfer-recipients.ts">TransferRecipientCreateMobileMoneyResponse</a></code>
+- <code><a href="./src/resources/transfers.ts">TransferRetrieveResponse</a></code>
+- <code><a href="./src/resources/transfers.ts">TransferListResponse</a></code>
+- <code><a href="./src/resources/transfers.ts">TransferGetStatusByReferenceResponse</a></code>
+- <code><a href="./src/resources/transfers.ts">TransferInitiateBankTransferResponse</a></code>
+- <code><a href="./src/resources/transfers.ts">TransferInitiateMobileMoneyTransferResponse</a></code>
 
 Methods:
 
-- <code title="get /api/v1/bila/transfer-recipients/{id}">client.v1.bila.transferRecipients.<a href="./src/resources/v1/bila/transfer-recipients.ts">retrieve</a>(id) -> TransferRecipientRetrieveResponse</code>
-- <code title="get /api/v1/bila/transfer-recipients">client.v1.bila.transferRecipients.<a href="./src/resources/v1/bila/transfer-recipients.ts">list</a>({ ...params }) -> TransferRecipientListResponse</code>
-- <code title="post /api/v1/bila/transfer-recipients/bank-account">client.v1.bila.transferRecipients.<a href="./src/resources/v1/bila/transfer-recipients.ts">createBankAccount</a>({ ...params }) -> TransferRecipientCreateBankAccountResponse</code>
-- <code title="post /api/v1/bila/transfer-recipients/mobile-money">client.v1.bila.transferRecipients.<a href="./src/resources/v1/bila/transfer-recipients.ts">createMobileMoney</a>({ ...params }) -> TransferRecipientCreateMobileMoneyResponse</code>
+- <code title="get /api/v1/bila/transfers/{id}">client.transfers.<a href="./src/resources/transfers.ts">retrieve</a>(id) -> TransferRetrieveResponse</code>
+- <code title="get /api/v1/bila/transfers">client.transfers.<a href="./src/resources/transfers.ts">list</a>({ ...params }) -> TransferListResponse</code>
+- <code title="get /api/v1/bila/transfers/status/{reference}">client.transfers.<a href="./src/resources/transfers.ts">getStatusByReference</a>(reference) -> TransferGetStatusByReferenceResponse</code>
+- <code title="post /api/v1/bila/transfers/bank-account">client.transfers.<a href="./src/resources/transfers.ts">initiateBankTransfer</a>({ ...params }) -> TransferInitiateBankTransferResponse</code>
+- <code title="post /api/v1/bila/transfers/mobile-money">client.transfers.<a href="./src/resources/transfers.ts">initiateMobileMoneyTransfer</a>({ ...params }) -> TransferInitiateMobileMoneyTransferResponse</code>
 
-### Transfers
+# Collections
 
 Types:
 
-- <code><a href="./src/resources/v1/bila/transfers.ts">TransferRetrieveResponse</a></code>
-- <code><a href="./src/resources/v1/bila/transfers.ts">TransferListResponse</a></code>
-- <code><a href="./src/resources/v1/bila/transfers.ts">TransferGetStatusByReferenceResponse</a></code>
-- <code><a href="./src/resources/v1/bila/transfers.ts">TransferInitiateBankTransferResponse</a></code>
-- <code><a href="./src/resources/v1/bila/transfers.ts">TransferInitiateMobileMoneyTransferResponse</a></code>
+- <code><a href="./src/resources/collections.ts">CollectionRetrieveResponse</a></code>
+- <code><a href="./src/resources/collections.ts">CollectionListResponse</a></code>
+- <code><a href="./src/resources/collections.ts">CollectionGetStatusByReferenceResponse</a></code>
+- <code><a href="./src/resources/collections.ts">CollectionInitiateMobileMoneyCollectionResponse</a></code>
 
 Methods:
 
-- <code title="get /api/v1/bila/transfers/{id}">client.v1.bila.transfers.<a href="./src/resources/v1/bila/transfers.ts">retrieve</a>(id) -> TransferRetrieveResponse</code>
-- <code title="get /api/v1/bila/transfers">client.v1.bila.transfers.<a href="./src/resources/v1/bila/transfers.ts">list</a>({ ...params }) -> TransferListResponse</code>
-- <code title="get /api/v1/bila/transfers/status/{reference}">client.v1.bila.transfers.<a href="./src/resources/v1/bila/transfers.ts">getStatusByReference</a>(reference) -> TransferGetStatusByReferenceResponse</code>
-- <code title="post /api/v1/bila/transfers/bank-account">client.v1.bila.transfers.<a href="./src/resources/v1/bila/transfers.ts">initiateBankTransfer</a>({ ...params }) -> TransferInitiateBankTransferResponse</code>
-- <code title="post /api/v1/bila/transfers/mobile-money">client.v1.bila.transfers.<a href="./src/resources/v1/bila/transfers.ts">initiateMobileMoneyTransfer</a>({ ...params }) -> TransferInitiateMobileMoneyTransferResponse</code>
+- <code title="get /api/v1/bila/collections/{id}">client.collections.<a href="./src/resources/collections.ts">retrieve</a>(id) -> CollectionRetrieveResponse</code>
+- <code title="get /api/v1/bila/collections">client.collections.<a href="./src/resources/collections.ts">list</a>({ ...params }) -> CollectionListResponse</code>
+- <code title="get /api/v1/bila/collections/status/{reference}">client.collections.<a href="./src/resources/collections.ts">getStatusByReference</a>(reference) -> CollectionGetStatusByReferenceResponse</code>
+- <code title="post /api/v1/bila/collections/mobile-money">client.collections.<a href="./src/resources/collections.ts">initiateMobileMoneyCollection</a>({ ...params }) -> CollectionInitiateMobileMoneyCollectionResponse</code>
 
-### Collections
+# Transactions
 
 Types:
 
-- <code><a href="./src/resources/v1/bila/collections.ts">CollectionRetrieveResponse</a></code>
-- <code><a href="./src/resources/v1/bila/collections.ts">CollectionListResponse</a></code>
-- <code><a href="./src/resources/v1/bila/collections.ts">CollectionGetStatusByReferenceResponse</a></code>
-- <code><a href="./src/resources/v1/bila/collections.ts">CollectionInitiateMobileMoneyCollectionResponse</a></code>
+- <code><a href="./src/resources/transactions.ts">TransactionRetrieveResponse</a></code>
+- <code><a href="./src/resources/transactions.ts">TransactionListResponse</a></code>
 
 Methods:
 
-- <code title="get /api/v1/bila/collections/{id}">client.v1.bila.collections.<a href="./src/resources/v1/bila/collections.ts">retrieve</a>(id) -> CollectionRetrieveResponse</code>
-- <code title="get /api/v1/bila/collections">client.v1.bila.collections.<a href="./src/resources/v1/bila/collections.ts">list</a>({ ...params }) -> CollectionListResponse</code>
-- <code title="get /api/v1/bila/collections/status/{reference}">client.v1.bila.collections.<a href="./src/resources/v1/bila/collections.ts">getStatusByReference</a>(reference) -> CollectionGetStatusByReferenceResponse</code>
-- <code title="post /api/v1/bila/collections/mobile-money">client.v1.bila.collections.<a href="./src/resources/v1/bila/collections.ts">initiateMobileMoneyCollection</a>({ ...params }) -> CollectionInitiateMobileMoneyCollectionResponse</code>
+- <code title="get /api/v1/bila/transactions/{id}">client.transactions.<a href="./src/resources/transactions.ts">retrieve</a>(id) -> TransactionRetrieveResponse</code>
+- <code title="get /api/v1/bila/transactions">client.transactions.<a href="./src/resources/transactions.ts">list</a>({ ...params }) -> TransactionListResponse</code>
 
-### Transactions
+# Webhooks
 
 Types:
 
-- <code><a href="./src/resources/v1/bila/transactions.ts">TransactionRetrieveResponse</a></code>
-- <code><a href="./src/resources/v1/bila/transactions.ts">TransactionListResponse</a></code>
+- <code><a href="./src/resources/webhooks.ts">WebhookCreateResponse</a></code>
+- <code><a href="./src/resources/webhooks.ts">WebhookUpdateResponse</a></code>
+- <code><a href="./src/resources/webhooks.ts">WebhookListResponse</a></code>
+- <code><a href="./src/resources/webhooks.ts">WebhookGetDeliveriesResponse</a></code>
+- <code><a href="./src/resources/webhooks.ts">WebhookListEventsResponse</a></code>
+- <code><a href="./src/resources/webhooks.ts">WebhookRotateSecretResponse</a></code>
 
 Methods:
 
-- <code title="get /api/v1/bila/transactions/{id}">client.v1.bila.transactions.<a href="./src/resources/v1/bila/transactions.ts">retrieve</a>(id) -> TransactionRetrieveResponse</code>
-- <code title="get /api/v1/bila/transactions">client.v1.bila.transactions.<a href="./src/resources/v1/bila/transactions.ts">list</a>({ ...params }) -> TransactionListResponse</code>
+- <code title="post /api/v1/bila/webhooks">client.webhooks.<a href="./src/resources/webhooks.ts">create</a>({ ...params }) -> WebhookCreateResponse</code>
+- <code title="patch /api/v1/bila/webhooks/{id}">client.webhooks.<a href="./src/resources/webhooks.ts">update</a>(id, { ...params }) -> WebhookUpdateResponse</code>
+- <code title="get /api/v1/bila/webhooks">client.webhooks.<a href="./src/resources/webhooks.ts">list</a>() -> WebhookListResponse</code>
+- <code title="delete /api/v1/bila/webhooks/{id}">client.webhooks.<a href="./src/resources/webhooks.ts">deactivate</a>(id) -> BilaResponse</code>
+- <code title="get /api/v1/bila/webhooks/{id}/deliveries">client.webhooks.<a href="./src/resources/webhooks.ts">getDeliveries</a>(id, { ...params }) -> WebhookGetDeliveriesResponse</code>
+- <code title="get /api/v1/bila/webhooks/events">client.webhooks.<a href="./src/resources/webhooks.ts">listEvents</a>() -> WebhookListEventsResponse</code>
+- <code title="post /api/v1/bila/webhooks/{id}/rotate-secret">client.webhooks.<a href="./src/resources/webhooks.ts">rotateSecret</a>(id) -> WebhookRotateSecretResponse</code>
 
-### Webhooks
+# Banks
 
 Types:
 
-- <code><a href="./src/resources/v1/bila/webhooks.ts">WebhookCreateResponse</a></code>
-- <code><a href="./src/resources/v1/bila/webhooks.ts">WebhookUpdateResponse</a></code>
-- <code><a href="./src/resources/v1/bila/webhooks.ts">WebhookListResponse</a></code>
-- <code><a href="./src/resources/v1/bila/webhooks.ts">WebhookGetDeliveriesResponse</a></code>
-- <code><a href="./src/resources/v1/bila/webhooks.ts">WebhookListEventsResponse</a></code>
-- <code><a href="./src/resources/v1/bila/webhooks.ts">WebhookRotateSecretResponse</a></code>
+- <code><a href="./src/resources/banks.ts">BankListResponse</a></code>
 
 Methods:
 
-- <code title="post /api/v1/bila/webhooks">client.v1.bila.webhooks.<a href="./src/resources/v1/bila/webhooks.ts">create</a>({ ...params }) -> WebhookCreateResponse</code>
-- <code title="patch /api/v1/bila/webhooks/{id}">client.v1.bila.webhooks.<a href="./src/resources/v1/bila/webhooks.ts">update</a>(id, { ...params }) -> WebhookUpdateResponse</code>
-- <code title="get /api/v1/bila/webhooks">client.v1.bila.webhooks.<a href="./src/resources/v1/bila/webhooks.ts">list</a>() -> WebhookListResponse</code>
-- <code title="delete /api/v1/bila/webhooks/{id}">client.v1.bila.webhooks.<a href="./src/resources/v1/bila/webhooks.ts">deactivate</a>(id) -> BilaResponse</code>
-- <code title="get /api/v1/bila/webhooks/{id}/deliveries">client.v1.bila.webhooks.<a href="./src/resources/v1/bila/webhooks.ts">getDeliveries</a>(id, { ...params }) -> WebhookGetDeliveriesResponse</code>
-- <code title="get /api/v1/bila/webhooks/events">client.v1.bila.webhooks.<a href="./src/resources/v1/bila/webhooks.ts">listEvents</a>() -> WebhookListEventsResponse</code>
-- <code title="post /api/v1/bila/webhooks/{id}/rotate-secret">client.v1.bila.webhooks.<a href="./src/resources/v1/bila/webhooks.ts">rotateSecret</a>(id) -> WebhookRotateSecretResponse</code>
+- <code title="get /api/v1/bila/banks">client.banks.<a href="./src/resources/banks.ts">list</a>({ ...params }) -> BankListResponse</code>
+
+# Resolve
+
+Types:
+
+- <code><a href="./src/resources/resolve.ts">ResolveBankAccountResponse</a></code>
+- <code><a href="./src/resources/resolve.ts">ResolveMobileMoneyResponse</a></code>
+
+Methods:
+
+- <code title="post /api/v1/bila/resolve/bank-account">client.resolve.<a href="./src/resources/resolve.ts">bankAccount</a>({ ...params }) -> ResolveBankAccountResponse</code>
+- <code title="post /api/v1/bila/resolve/mobile-money">client.resolve.<a href="./src/resources/resolve.ts">mobileMoney</a>({ ...params }) -> ResolveMobileMoneyResponse</code>
