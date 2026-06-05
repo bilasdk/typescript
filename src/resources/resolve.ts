@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as AccountsAPI from './accounts';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 
@@ -47,90 +46,69 @@ export class Resolve extends APIResource {
   }
 }
 
-export interface ResolveBankAccountResponse extends AccountsAPI.BilaResponse {
-  data?: ResolveBankAccountResponse.Data;
+export interface ResolvedAccountResponseDto {
+  /**
+   * Account holder name
+   */
+  accountName: string;
+
+  /**
+   * Country code
+   */
+  country: string;
+
+  /**
+   * Bank account number
+   */
+  accountNumber?: string;
+
+  /**
+   * Bank ID
+   */
+  bankId?: string;
+
+  /**
+   * Bank name
+   */
+  bankName?: string;
+
+  /**
+   * Mobile money operator
+   */
+  operator?: string;
+
+  /**
+   * Phone number
+   */
+  phone?: string;
 }
 
-export namespace ResolveBankAccountResponse {
-  export interface Data {
-    /**
-     * Account holder name
-     */
-    accountName: string;
+export interface ResolveBankAccountResponse {
+  /**
+   * Response message
+   */
+  message: string;
 
-    /**
-     * Country code
-     */
-    country: string;
+  /**
+   * Request success status
+   */
+  status: boolean;
 
-    /**
-     * Bank account number
-     */
-    accountNumber?: string;
-
-    /**
-     * Bank ID
-     */
-    bankId?: string;
-
-    /**
-     * Bank name
-     */
-    bankName?: string;
-
-    /**
-     * Mobile money operator
-     */
-    operator?: string;
-
-    /**
-     * Phone number
-     */
-    phone?: string;
-  }
+  data?: ResolvedAccountResponseDto;
 }
 
-export interface ResolveMobileMoneyResponse extends AccountsAPI.BilaResponse {
-  data?: ResolveMobileMoneyResponse.Data;
-}
+export interface ResolveMobileMoneyResponse {
+  /**
+   * Response message
+   */
+  message: string;
 
-export namespace ResolveMobileMoneyResponse {
-  export interface Data {
-    /**
-     * Account holder name
-     */
-    accountName: string;
+  /**
+   * Request success status
+   */
+  status: boolean;
 
-    /**
-     * Country code
-     */
-    country: string;
-
-    /**
-     * Bank account number
-     */
-    accountNumber?: string;
-
-    /**
-     * Bank ID
-     */
-    bankId?: string;
-
-    /**
-     * Bank name
-     */
-    bankName?: string;
-
-    /**
-     * Mobile money operator
-     */
-    operator?: string;
-
-    /**
-     * Phone number
-     */
-    phone?: string;
-  }
+  data?: ResolvedAccountResponseDto;
 }
 
 export interface ResolveBankAccountParams {
@@ -147,19 +125,19 @@ export interface ResolveBankAccountParams {
   /**
    * Country code
    */
-  country?: 'zm' | 'ng';
+  country?: 'zm';
 }
 
 export interface ResolveMobileMoneyParams {
   /**
    * Country code
    */
-  country: 'zm' | 'ng';
+  country: 'zm';
 
   /**
    * Mobile money operator
    */
-  operator: 'airtel' | 'mtn' | 'zamtel' | 'vodacom';
+  operator: 'airtel' | 'mtn' | 'zamtel';
 
   /**
    * Mobile phone number
@@ -169,6 +147,7 @@ export interface ResolveMobileMoneyParams {
 
 export declare namespace Resolve {
   export {
+    type ResolvedAccountResponseDto as ResolvedAccountResponseDto,
     type ResolveBankAccountResponse as ResolveBankAccountResponse,
     type ResolveMobileMoneyResponse as ResolveMobileMoneyResponse,
     type ResolveBankAccountParams as ResolveBankAccountParams,

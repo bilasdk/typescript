@@ -1,8 +1,15 @@
+# Shared
+
+Types:
+
+- <code><a href="./src/resources/shared.ts">PaginationMetaDto</a></code>
+
 # Accounts
 
 Types:
 
-- <code><a href="./src/resources/accounts.ts">BilaResponse</a></code>
+- <code><a href="./src/resources/accounts.ts">AccountDetailsDto</a></code>
+- <code><a href="./src/resources/accounts.ts">AccountResponseDto</a></code>
 - <code><a href="./src/resources/accounts.ts">AccountRetrieveResponse</a></code>
 - <code><a href="./src/resources/accounts.ts">AccountListResponse</a></code>
 - <code><a href="./src/resources/accounts.ts">AccountGetBalanceResponse</a></code>
@@ -17,6 +24,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/transfer-recipients.ts">RecipientResponseDto</a></code>
 - <code><a href="./src/resources/transfer-recipients.ts">TransferRecipientRetrieveResponse</a></code>
 - <code><a href="./src/resources/transfer-recipients.ts">TransferRecipientListResponse</a></code>
 - <code><a href="./src/resources/transfer-recipients.ts">TransferRecipientCreateBankAccountResponse</a></code>
@@ -33,6 +41,8 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/transfers.ts">TransferRecipientDto</a></code>
+- <code><a href="./src/resources/transfers.ts">TransferResponseDto</a></code>
 - <code><a href="./src/resources/transfers.ts">TransferRetrieveResponse</a></code>
 - <code><a href="./src/resources/transfers.ts">TransferListResponse</a></code>
 - <code><a href="./src/resources/transfers.ts">TransferGetStatusByReferenceResponse</a></code>
@@ -51,6 +61,8 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/collections.ts">BilaCollectionCustomerDto</a></code>
+- <code><a href="./src/resources/collections.ts">BilaCollectionResponseDto</a></code>
 - <code><a href="./src/resources/collections.ts">CollectionRetrieveResponse</a></code>
 - <code><a href="./src/resources/collections.ts">CollectionListResponse</a></code>
 - <code><a href="./src/resources/collections.ts">CollectionGetStatusByReferenceResponse</a></code>
@@ -67,6 +79,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/transactions.ts">TransactionResponseDto</a></code>
 - <code><a href="./src/resources/transactions.ts">TransactionRetrieveResponse</a></code>
 - <code><a href="./src/resources/transactions.ts">TransactionListResponse</a></code>
 
@@ -79,9 +92,11 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/webhooks.ts">WebhookConfigResponseDto</a></code>
 - <code><a href="./src/resources/webhooks.ts">WebhookCreateResponse</a></code>
 - <code><a href="./src/resources/webhooks.ts">WebhookUpdateResponse</a></code>
 - <code><a href="./src/resources/webhooks.ts">WebhookListResponse</a></code>
+- <code><a href="./src/resources/webhooks.ts">WebhookDeactivateResponse</a></code>
 - <code><a href="./src/resources/webhooks.ts">WebhookGetDeliveriesResponse</a></code>
 - <code><a href="./src/resources/webhooks.ts">WebhookListEventsResponse</a></code>
 - <code><a href="./src/resources/webhooks.ts">WebhookRotateSecretResponse</a></code>
@@ -91,7 +106,7 @@ Methods:
 - <code title="post /api/v1/bila/webhooks">client.webhooks.<a href="./src/resources/webhooks.ts">create</a>({ ...params }) -> WebhookCreateResponse</code>
 - <code title="patch /api/v1/bila/webhooks/{id}">client.webhooks.<a href="./src/resources/webhooks.ts">update</a>(id, { ...params }) -> WebhookUpdateResponse</code>
 - <code title="get /api/v1/bila/webhooks">client.webhooks.<a href="./src/resources/webhooks.ts">list</a>() -> WebhookListResponse</code>
-- <code title="delete /api/v1/bila/webhooks/{id}">client.webhooks.<a href="./src/resources/webhooks.ts">deactivate</a>(id) -> BilaResponse</code>
+- <code title="delete /api/v1/bila/webhooks/{id}">client.webhooks.<a href="./src/resources/webhooks.ts">deactivate</a>(id) -> WebhookDeactivateResponse</code>
 - <code title="get /api/v1/bila/webhooks/{id}/deliveries">client.webhooks.<a href="./src/resources/webhooks.ts">getDeliveries</a>(id, { ...params }) -> WebhookGetDeliveriesResponse</code>
 - <code title="get /api/v1/bila/webhooks/events">client.webhooks.<a href="./src/resources/webhooks.ts">listEvents</a>() -> WebhookListEventsResponse</code>
 - <code title="post /api/v1/bila/webhooks/{id}/rotate-secret">client.webhooks.<a href="./src/resources/webhooks.ts">rotateSecret</a>(id) -> WebhookRotateSecretResponse</code>
@@ -110,6 +125,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/resolve.ts">ResolvedAccountResponseDto</a></code>
 - <code><a href="./src/resources/resolve.ts">ResolveBankAccountResponse</a></code>
 - <code><a href="./src/resources/resolve.ts">ResolveMobileMoneyResponse</a></code>
 

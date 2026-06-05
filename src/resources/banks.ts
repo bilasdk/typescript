@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as AccountsAPI from './accounts';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 
@@ -20,7 +19,17 @@ export class Banks extends APIResource {
   }
 }
 
-export interface BankListResponse extends AccountsAPI.BilaResponse {
+export interface BankListResponse {
+  /**
+   * Response message
+   */
+  message: string;
+
+  /**
+   * Request success status
+   */
+  status: boolean;
+
   data?: Array<BankListResponse.Data>;
 }
 

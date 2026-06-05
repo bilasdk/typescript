@@ -28,6 +28,8 @@ const client = new Bila({
 });
 
 const accounts = await client.accounts.list();
+
+console.log(accounts.message);
 ```
 
 ### Request & Response types
@@ -142,7 +144,7 @@ console.log(response.statusText); // access the underlying Response object
 
 const { data: accounts, response: raw } = await client.accounts.list().withResponse();
 console.log(raw.headers.get('X-My-Header'));
-console.log(accounts);
+console.log(accounts.message);
 ```
 
 ### Logging
