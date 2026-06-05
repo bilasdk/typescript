@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as AccountsAPI from './accounts';
+import * as Shared from './shared';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
@@ -56,12 +56,12 @@ export class Webhooks extends APIResource {
    *
    * @example
    * ```ts
-   * const bilaResponse = await client.webhooks.deactivate(
+   * const response = await client.webhooks.deactivate(
    *   '68f11209-451f-4a15-bfcd-d916eb8b09f4',
    * );
    * ```
    */
-  deactivate(id: string, options?: RequestOptions): APIPromise<AccountsAPI.BilaResponse> {
+  deactivate(id: string, options?: RequestOptions): APIPromise<WebhookDeactivateResponse> {
     return this._client.delete(path`/api/v1/bila/webhooks/${id}`, options);
   }
 
@@ -110,133 +110,107 @@ export class Webhooks extends APIResource {
   }
 }
 
-export interface WebhookCreateResponse extends AccountsAPI.BilaResponse {
-  data?: WebhookCreateResponse.Data;
+export interface WebhookConfigResponseDto {
+  /**
+   * Webhook config UUID
+   */
+  id: string;
+
+  createdAt: string;
+
+  /**
+   * Subscribed event types
+   */
+  events: Array<string>;
+
+  /**
+   * Whether the webhook is active
+   */
+  isActive: boolean;
+
+  /**
+   * Merchant UUID
+   */
+  merchantId: string;
+
+  /**
+   * Signing secret; plaintext only on create/rotate-secret, otherwise masked
+   */
+  secret: string;
+
+  updatedAt: string;
+
+  /**
+   * Webhook endpoint URL
+   */
+  url: string;
 }
 
-export namespace WebhookCreateResponse {
-  export interface Data {
-    /**
-     * Webhook config UUID
-     */
-    id: string;
+export interface WebhookCreateResponse {
+  /**
+   * Response message
+   */
+  message: string;
 
-    createdAt: string;
+  /**
+   * Request success status
+   */
+  status: boolean;
 
-    /**
-     * Subscribed event types
-     */
-    events: Array<string>;
-
-    /**
-     * Whether the webhook is active
-     */
-    isActive: boolean;
-
-    /**
-     * Merchant UUID
-     */
-    merchantId: string;
-
-    /**
-     * Signing secret; plaintext only on create/rotate-secret, otherwise masked
-     */
-    secret: string;
-
-    updatedAt: string;
-
-    /**
-     * Webhook endpoint URL
-     */
-    url: string;
-  }
+  data?: WebhookConfigResponseDto;
 }
 
-export interface WebhookUpdateResponse extends AccountsAPI.BilaResponse {
-  data?: WebhookUpdateResponse.Data;
+export interface WebhookUpdateResponse {
+  /**
+   * Response message
+   */
+  message: string;
+
+  /**
+   * Request success status
+   */
+  status: boolean;
+
+  data?: WebhookConfigResponseDto;
 }
 
-export namespace WebhookUpdateResponse {
-  export interface Data {
-    /**
-     * Webhook config UUID
-     */
-    id: string;
+export interface WebhookListResponse {
+  /**
+   * Response message
+   */
+  message: string;
 
-    createdAt: string;
+  /**
+   * Request success status
+   */
+  status: boolean;
 
-    /**
-     * Subscribed event types
-     */
-    events: Array<string>;
-
-    /**
-     * Whether the webhook is active
-     */
-    isActive: boolean;
-
-    /**
-     * Merchant UUID
-     */
-    merchantId: string;
-
-    /**
-     * Signing secret; plaintext only on create/rotate-secret, otherwise masked
-     */
-    secret: string;
-
-    updatedAt: string;
-
-    /**
-     * Webhook endpoint URL
-     */
-    url: string;
-  }
+  data?: Array<WebhookConfigResponseDto>;
 }
 
-export interface WebhookListResponse extends AccountsAPI.BilaResponse {
-  data?: Array<WebhookListResponse.Data>;
+export interface WebhookDeactivateResponse {
+  /**
+   * Response message
+   */
+  message: string;
+
+  /**
+   * Request success status
+   */
+  status: boolean;
 }
 
-export namespace WebhookListResponse {
-  export interface Data {
-    /**
-     * Webhook config UUID
-     */
-    id: string;
+export interface WebhookGetDeliveriesResponse {
+  /**
+   * Response message
+   */
+  message: string;
 
-    createdAt: string;
+  /**
+   * Request success status
+   */
+  status: boolean;
 
-    /**
-     * Subscribed event types
-     */
-    events: Array<string>;
-
-    /**
-     * Whether the webhook is active
-     */
-    isActive: boolean;
-
-    /**
-     * Merchant UUID
-     */
-    merchantId: string;
-
-    /**
-     * Signing secret; plaintext only on create/rotate-secret, otherwise masked
-     */
-    secret: string;
-
-    updatedAt: string;
-
-    /**
-     * Webhook endpoint URL
-     */
-    url: string;
-  }
-}
-
-export interface WebhookGetDeliveriesResponse extends AccountsAPI.BilaResponse {
   data?: WebhookGetDeliveriesResponse.Data;
 }
 
@@ -250,7 +224,7 @@ export namespace WebhookGetDeliveriesResponse {
     /**
      * Pagination metadata
      */
-    meta: Data.Meta;
+    meta: Shared.PaginationMetaDto;
   }
 
   export namespace Data {
@@ -317,39 +291,34 @@ export namespace WebhookGetDeliveriesResponse {
        */
       webhookConfigId: string;
     }
-
-    /**
-     * Pagination metadata
-     */
-    export interface Meta {
-      /**
-       * Current page number
-       */
-      currentPage: number;
-
-      /**
-       * Total number of pages
-       */
-      pageCount: number;
-
-      /**
-       * Items per page
-       */
-      perPage: number;
-
-      /**
-       * Total number of records
-       */
-      total: number;
-    }
   }
 }
 
-export interface WebhookListEventsResponse extends AccountsAPI.BilaResponse {
+export interface WebhookListEventsResponse {
+  /**
+   * Response message
+   */
+  message: string;
+
+  /**
+   * Request success status
+   */
+  status: boolean;
+
   data?: Array<string>;
 }
 
-export interface WebhookRotateSecretResponse extends AccountsAPI.BilaResponse {
+export interface WebhookRotateSecretResponse {
+  /**
+   * Response message
+   */
+  message: string;
+
+  /**
+   * Request success status
+   */
+  status: boolean;
+
   data?: WebhookRotateSecretResponse.Data;
 }
 
@@ -463,9 +432,11 @@ export interface WebhookGetDeliveriesParams {
 
 export declare namespace Webhooks {
   export {
+    type WebhookConfigResponseDto as WebhookConfigResponseDto,
     type WebhookCreateResponse as WebhookCreateResponse,
     type WebhookUpdateResponse as WebhookUpdateResponse,
     type WebhookListResponse as WebhookListResponse,
+    type WebhookDeactivateResponse as WebhookDeactivateResponse,
     type WebhookGetDeliveriesResponse as WebhookGetDeliveriesResponse,
     type WebhookListEventsResponse as WebhookListEventsResponse,
     type WebhookRotateSecretResponse as WebhookRotateSecretResponse,

@@ -1,7 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as AccountsAPI from './accounts';
+import * as TransactionsAPI from './transactions';
+import * as Shared from './shared';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
@@ -28,70 +29,88 @@ export class Transactions extends APIResource {
   }
 }
 
-export interface TransactionRetrieveResponse extends AccountsAPI.BilaResponse {
-  data?: TransactionRetrieveResponse.Data;
+export interface TransactionResponseDto {
+  /**
+   * Transaction UUID
+   */
+  id: string;
+
+  /**
+   * Account / wallet ID
+   */
+  accountId: string;
+
+  /**
+   * Transaction amount
+   */
+  amount: number;
+
+  /**
+   * Balance after transaction
+   */
+  balanceAfter: number;
+
+  /**
+   * Balance before transaction
+   */
+  balanceBefore: number;
+
+  /**
+   * Transaction timestamp
+   */
+  createdAt: string;
+
+  /**
+   * Currency code
+   */
+  currency: string;
+
+  /**
+   * Transaction status
+   */
+  status: 'pending' | 'successful' | 'failed' | 'cancelled';
+
+  /**
+   * Transaction type
+   */
+  type: 'credit' | 'debit';
+
+  /**
+   * Transaction description
+   */
+  description?: string;
+
+  /**
+   * Client reference
+   */
+  reference?: string;
 }
 
-export namespace TransactionRetrieveResponse {
-  export interface Data {
-    /**
-     * Transaction UUID
-     */
-    id: string;
+export interface TransactionRetrieveResponse {
+  /**
+   * Response message
+   */
+  message: string;
 
-    /**
-     * Account / wallet ID
-     */
-    accountId: string;
+  /**
+   * Request success status
+   */
+  status: boolean;
 
-    /**
-     * Transaction amount
-     */
-    amount: number;
-
-    /**
-     * Balance after transaction
-     */
-    balanceAfter: number;
-
-    /**
-     * Balance before transaction
-     */
-    balanceBefore: number;
-
-    /**
-     * Transaction timestamp
-     */
-    createdAt: string;
-
-    /**
-     * Currency code
-     */
-    currency: string;
-
-    /**
-     * Transaction status
-     */
-    status: 'pending' | 'successful' | 'failed' | 'cancelled';
-
-    /**
-     * Transaction type
-     */
-    type: 'credit' | 'debit';
-
-    /**
-     * Transaction description
-     */
-    description?: string;
-
-    /**
-     * Client reference
-     */
-    reference?: string;
-  }
+  data?: TransactionResponseDto;
 }
 
-export interface TransactionListResponse extends AccountsAPI.BilaResponse {
+export interface TransactionListResponse {
+  /**
+   * Response message
+   */
+  message: string;
+
+  /**
+   * Request success status
+   */
+  status: boolean;
+
   data?: TransactionListResponse.Data;
 }
 
@@ -100,96 +119,12 @@ export namespace TransactionListResponse {
     /**
      * List of transactions
      */
-    data: Array<Data.Data>;
+    data: Array<TransactionsAPI.TransactionResponseDto>;
 
     /**
      * Pagination metadata
      */
-    meta: Data.Meta;
-  }
-
-  export namespace Data {
-    export interface Data {
-      /**
-       * Transaction UUID
-       */
-      id: string;
-
-      /**
-       * Account / wallet ID
-       */
-      accountId: string;
-
-      /**
-       * Transaction amount
-       */
-      amount: number;
-
-      /**
-       * Balance after transaction
-       */
-      balanceAfter: number;
-
-      /**
-       * Balance before transaction
-       */
-      balanceBefore: number;
-
-      /**
-       * Transaction timestamp
-       */
-      createdAt: string;
-
-      /**
-       * Currency code
-       */
-      currency: string;
-
-      /**
-       * Transaction status
-       */
-      status: 'pending' | 'successful' | 'failed' | 'cancelled';
-
-      /**
-       * Transaction type
-       */
-      type: 'credit' | 'debit';
-
-      /**
-       * Transaction description
-       */
-      description?: string;
-
-      /**
-       * Client reference
-       */
-      reference?: string;
-    }
-
-    /**
-     * Pagination metadata
-     */
-    export interface Meta {
-      /**
-       * Current page number
-       */
-      currentPage: number;
-
-      /**
-       * Total number of pages
-       */
-      pageCount: number;
-
-      /**
-       * Items per page
-       */
-      perPage: number;
-
-      /**
-       * Total number of records
-       */
-      total: number;
-    }
+    meta: Shared.PaginationMetaDto;
   }
 }
 
@@ -227,6 +162,7 @@ export interface TransactionListParams {
 
 export declare namespace Transactions {
   export {
+    type TransactionResponseDto as TransactionResponseDto,
     type TransactionRetrieveResponse as TransactionRetrieveResponse,
     type TransactionListResponse as TransactionListResponse,
     type TransactionListParams as TransactionListParams,
