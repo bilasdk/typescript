@@ -18,15 +18,18 @@ import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import { APIPromise } from './core/api-promise';
 import {
+  AccountDetailsDto,
   AccountGetBalanceResponse,
   AccountListParams,
   AccountListResponse,
+  AccountResponseDto,
   AccountRetrieveResponse,
   Accounts,
-  BilaResponse,
 } from './resources/accounts';
 import { BankListParams, BankListResponse, Banks } from './resources/banks';
 import {
+  BilaCollectionCustomerDto,
+  BilaCollectionResponseDto,
   CollectionGetStatusByReferenceResponse,
   CollectionInitiateMobileMoneyCollectionParams,
   CollectionInitiateMobileMoneyCollectionResponse,
@@ -41,14 +44,17 @@ import {
   ResolveBankAccountResponse,
   ResolveMobileMoneyParams,
   ResolveMobileMoneyResponse,
+  ResolvedAccountResponseDto,
 } from './resources/resolve';
 import {
   TransactionListParams,
   TransactionListResponse,
+  TransactionResponseDto,
   TransactionRetrieveResponse,
   Transactions,
 } from './resources/transactions';
 import {
+  RecipientResponseDto,
   TransferRecipientCreateBankAccountParams,
   TransferRecipientCreateBankAccountResponse,
   TransferRecipientCreateMobileMoneyParams,
@@ -66,12 +72,16 @@ import {
   TransferInitiateMobileMoneyTransferResponse,
   TransferListParams,
   TransferListResponse,
+  TransferRecipientDto,
+  TransferResponseDto,
   TransferRetrieveResponse,
   Transfers,
 } from './resources/transfers';
 import {
+  WebhookConfigResponseDto,
   WebhookCreateParams,
   WebhookCreateResponse,
+  WebhookDeactivateResponse,
   WebhookGetDeliveriesParams,
   WebhookGetDeliveriesResponse,
   WebhookListEventsResponse,
@@ -865,7 +875,8 @@ export declare namespace Bila {
 
   export {
     Accounts as Accounts,
-    type BilaResponse as BilaResponse,
+    type AccountDetailsDto as AccountDetailsDto,
+    type AccountResponseDto as AccountResponseDto,
     type AccountRetrieveResponse as AccountRetrieveResponse,
     type AccountListResponse as AccountListResponse,
     type AccountGetBalanceResponse as AccountGetBalanceResponse,
@@ -874,6 +885,7 @@ export declare namespace Bila {
 
   export {
     TransferRecipients as TransferRecipients,
+    type RecipientResponseDto as RecipientResponseDto,
     type TransferRecipientRetrieveResponse as TransferRecipientRetrieveResponse,
     type TransferRecipientListResponse as TransferRecipientListResponse,
     type TransferRecipientCreateBankAccountResponse as TransferRecipientCreateBankAccountResponse,
@@ -885,6 +897,8 @@ export declare namespace Bila {
 
   export {
     Transfers as Transfers,
+    type TransferRecipientDto as TransferRecipientDto,
+    type TransferResponseDto as TransferResponseDto,
     type TransferRetrieveResponse as TransferRetrieveResponse,
     type TransferListResponse as TransferListResponse,
     type TransferGetStatusByReferenceResponse as TransferGetStatusByReferenceResponse,
@@ -897,6 +911,8 @@ export declare namespace Bila {
 
   export {
     Collections as Collections,
+    type BilaCollectionCustomerDto as BilaCollectionCustomerDto,
+    type BilaCollectionResponseDto as BilaCollectionResponseDto,
     type CollectionRetrieveResponse as CollectionRetrieveResponse,
     type CollectionListResponse as CollectionListResponse,
     type CollectionGetStatusByReferenceResponse as CollectionGetStatusByReferenceResponse,
@@ -907,6 +923,7 @@ export declare namespace Bila {
 
   export {
     Transactions as Transactions,
+    type TransactionResponseDto as TransactionResponseDto,
     type TransactionRetrieveResponse as TransactionRetrieveResponse,
     type TransactionListResponse as TransactionListResponse,
     type TransactionListParams as TransactionListParams,
@@ -914,9 +931,11 @@ export declare namespace Bila {
 
   export {
     Webhooks as Webhooks,
+    type WebhookConfigResponseDto as WebhookConfigResponseDto,
     type WebhookCreateResponse as WebhookCreateResponse,
     type WebhookUpdateResponse as WebhookUpdateResponse,
     type WebhookListResponse as WebhookListResponse,
+    type WebhookDeactivateResponse as WebhookDeactivateResponse,
     type WebhookGetDeliveriesResponse as WebhookGetDeliveriesResponse,
     type WebhookListEventsResponse as WebhookListEventsResponse,
     type WebhookRotateSecretResponse as WebhookRotateSecretResponse,
@@ -929,9 +948,12 @@ export declare namespace Bila {
 
   export {
     Resolve as Resolve,
+    type ResolvedAccountResponseDto as ResolvedAccountResponseDto,
     type ResolveBankAccountResponse as ResolveBankAccountResponse,
     type ResolveMobileMoneyResponse as ResolveMobileMoneyResponse,
     type ResolveBankAccountParams as ResolveBankAccountParams,
     type ResolveMobileMoneyParams as ResolveMobileMoneyParams,
   };
+
+  export type PaginationMetaDto = API.PaginationMetaDto;
 }

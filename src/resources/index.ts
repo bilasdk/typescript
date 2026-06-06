@@ -1,8 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+export * from './shared';
 export {
   Accounts,
-  type BilaResponse,
+  type AccountDetailsDto,
+  type AccountResponseDto,
   type AccountRetrieveResponse,
   type AccountListResponse,
   type AccountGetBalanceResponse,
@@ -11,6 +13,8 @@ export {
 export { Banks, type BankListResponse, type BankListParams } from './banks';
 export {
   Collections,
+  type BilaCollectionCustomerDto,
+  type BilaCollectionResponseDto,
   type CollectionRetrieveResponse,
   type CollectionListResponse,
   type CollectionGetStatusByReferenceResponse,
@@ -20,6 +24,7 @@ export {
 } from './collections';
 export {
   Resolve,
+  type ResolvedAccountResponseDto,
   type ResolveBankAccountResponse,
   type ResolveMobileMoneyResponse,
   type ResolveBankAccountParams,
@@ -27,12 +32,14 @@ export {
 } from './resolve';
 export {
   Transactions,
+  type TransactionResponseDto,
   type TransactionRetrieveResponse,
   type TransactionListResponse,
   type TransactionListParams,
 } from './transactions';
 export {
   TransferRecipients,
+  type RecipientResponseDto,
   type TransferRecipientRetrieveResponse,
   type TransferRecipientListResponse,
   type TransferRecipientCreateBankAccountResponse,
@@ -43,6 +50,8 @@ export {
 } from './transfer-recipients';
 export {
   Transfers,
+  type TransferRecipientDto,
+  type TransferResponseDto,
   type TransferRetrieveResponse,
   type TransferListResponse,
   type TransferGetStatusByReferenceResponse,
@@ -54,9 +63,11 @@ export {
 } from './transfers';
 export {
   Webhooks,
+  type WebhookConfigResponseDto,
   type WebhookCreateResponse,
   type WebhookUpdateResponse,
   type WebhookListResponse,
+  type WebhookDeactivateResponse,
   type WebhookGetDeliveriesResponse,
   type WebhookListEventsResponse,
   type WebhookRotateSecretResponse,
